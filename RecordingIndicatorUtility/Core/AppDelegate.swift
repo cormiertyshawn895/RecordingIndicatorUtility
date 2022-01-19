@@ -21,24 +21,75 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return shouldPreventClosing ? .terminateCancel : .terminateNow
     }
     
+    func safelyOpenURL(_ urlString: String?) {
+        if let page = urlString, let url = URL(string: page) {
+            NSWorkspace.shared.open(url)
+        }
+    }
+    
+    @objc func promptForUpdateAvailable() {
+        if (SystemInformation.shared.hasNewerVersion == true) {
+            AppDelegate.showOptionSheet(title: SystemInformation.shared.newVersionVisibleTitle ?? "Update available.",
+                                        text: SystemInformation.shared.newVersionChangelog ?? "A newer version of Recording Indicator Utility is available.",
+                                        firstButtonText: "Download",
+                                        secondButtonText: "Learn More...",
+                                        thirdButtonText: "Cancel") { (response) in
+                if (response == .alertFirstButtonReturn) {
+                    AppDelegate.current.safelyOpenURL(SystemInformation.shared.latestZIP)
+                } else if (response == .alertSecondButtonReturn) {
+                    AppDelegate.current.safelyOpenURL(SystemInformation.shared.releasePage)
+                }
+            }
+        } else {
+            AppDelegate.showOptionSheet(title: String(format: "Recording Indicator Utility %@ is already the latest available version.", Bundle.main.cfBundleVersionString ?? ""),
+                                        text:"",
+                                        firstButtonText: "OK",
+                                        secondButtonText: "View Release Page...",
+                                        thirdButtonText: "") { (response) in
+                if (response == .alertSecondButtonReturn) {
+                    AppDelegate.current.safelyOpenURL(SystemInformation.shared.releasePage)
+                }
+            }
+        }
+    }
+
     @IBAction func checkForUpdates(_ sender: Any? = nil) {
-        NSWorkspace.shared.open(URL(string:"https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases")!)
+        SystemInformation.shared.checkForConfigurationUpdates()
+        if (SystemInformation.shared.hasNewerVersion == true) {
+            self.promptForUpdateAvailable()
+        } else {
+            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(promptForUpdateAvailable), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @IBAction func tipsClicked(_ sender: Any) {
+        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility#troubleshooting-tips")
+    }
+    
+    @IBAction func frequentlyAskedQuestionsClicked(_ sender: Any) {
+        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility#frequently-asked-questions")
     }
     
     @IBAction func openIssue(_ sender: Any? = nil) {
-        NSWorkspace.shared.open(URL(string:"https://github.com/cormiertyshawn895/RecordingIndicatorUtility/issues/new")!)
+        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility/issues/new")
     }
     
     @IBAction func projectPage(_ sender: Any? = nil) {
-        NSWorkspace.shared.open(URL(string:"https://github.com/cormiertyshawn895/RecordingIndicatorUtility")!)
+        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility")
     }
     
     @IBAction func issueTracker(_ sender: Any) {
-        NSWorkspace.shared.open(URL(string:"https://github.com/cormiertyshawn895/RecordingIndicatorUtility/issues")!)
+        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility/issues")
     }
     
     static var current: AppDelegate {
         return NSApplication.shared.delegate as! AppDelegate
+    }
+    
+    static var rootVC: ViewController? {
+        get {
+            return self.appWindow?.contentViewController as? ViewController
+        }
     }
     
     static func showOptionSheet(title: String, text: String, firstButtonText: String, secondButtonText: String, thirdButtonText: String, callback: @escaping ((_ response: NSApplication.ModalResponse)-> ())) {

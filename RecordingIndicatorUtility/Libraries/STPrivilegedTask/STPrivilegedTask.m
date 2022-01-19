@@ -78,7 +78,7 @@ extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_i
     // "Mail Compacting Mailboxes" would be a useful string.
 
     // NOTE: IOPMAssertionCreateWithName limits the string to 128 characters.
-    CFStringRef reasonForActivity = CFSTR("Retroactive is modifying an app.");
+    CFStringRef reasonForActivity = CFSTR("Recording Indicator Utility is active.");
 
     IOReturn success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep, kIOPMAssertionLevelOn, reasonForActivity, &staticAssertionID);
     NSLog(@"preventing sleep with assertion, %d, %d", success, success == kIOReturnSuccess);

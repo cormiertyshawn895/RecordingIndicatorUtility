@@ -10,9 +10,11 @@ let tempSystemMountPath = "/tmp/system_mount"
 
 class ViewController: NSViewController {
     @IBOutlet weak var dateTimeLabel: NSTextField!
+    @IBOutlet weak var statusItemImageView: NSImageView!
     @IBOutlet weak var previewImageView: NSImageView!
     @IBOutlet weak var boxView: NSBox!
     @IBOutlet weak var imageGradientView: NSBox!
+    @IBOutlet weak var updateButton: NSButton!
     @IBOutlet weak var indicatorSwitch: NSSwitch!
     @IBOutlet weak var progressSpinner: NSProgressIndicator!
     @IBOutlet weak var indicatorDescription: NSTextField!
@@ -34,12 +36,23 @@ class ViewController: NSViewController {
         if (waitingForRestart != SystemInformation.shared.lastSystemBootTime) {
             waitingForRestart = nil
         }
+        checkForTranslation()
         reloadSwitchState()
+        reloadUpdateButton()
         setUpShadow()
         updatePreviewDate()
         updateUI()
         checkForVersionCompatibility()
         sheetViewController = SheetViewController.instantiate()
+    }
+    
+    func checkForTranslation() {
+        if SystemInformation.shared.isTranslated {
+            print("This process is translated.")
+            AppDelegate.showOptionSheet(title: "You need to open Recording Indicator Utility without Rosetta.", text: "In Finder, right click on Recording Indicator Utility, choose Get Info, and uncheck “Open using Rosetta”. Then double click to open Recording Indicator Utility again.", firstButtonText: "OK", secondButtonText: "", thirdButtonText: "") { response in
+                NSApplication.shared.terminate(self)
+            }
+        }
     }
     
     func reloadSwitchState(_ animated: Bool = true) {
@@ -49,6 +62,13 @@ class ViewController: NSViewController {
         } else {
             indicatorSwitch.state = state
         }
+    }
+    
+    func reloadUpdateButton() {
+        let hasNewerVersion = SystemInformation.shared.hasNewerVersion
+        updateButton.isHidden = !hasNewerVersion
+        statusItemImageView.isHidden = hasNewerVersion
+        dateTimeLabel.isHidden = hasNewerVersion
     }
     
     func setUpShadow() {
@@ -90,14 +110,13 @@ class ViewController: NSViewController {
         if !osNotRecognized {
             return;
         }
-        AppDelegate.showOptionSheet(title: "Update to the latest version of Recording Indicator Utility",
+        AppDelegate.showOptionSheet(title: "Update to the latest version of Recording Indicator Utility.",
                                     text: "This version of Recording Indicator Utility is only designed and tested for macOS Monterey, and does not support macOS \(osFullVersion.majorVersion).",
                                     firstButtonText: "Check for Updates",
                                     secondButtonText: "Continue Anyways",
                                     thirdButtonText: "Quit") { (response) in
             if (response == .alertFirstButtonReturn) {
                 AppDelegate.current.checkForUpdates()
-                NSApplication.shared.terminate(self)
             } else if (response == .alertSecondButtonReturn) {
             } else {
                 NSApplication.shared.terminate(self)
@@ -189,14 +208,14 @@ class ViewController: NSViewController {
             return false
         }
         if (!alreadyMounted) {
-            _ = SystemInformation.runTask(toolPath: "/bin/mkdir", arguments: [tempSystemMountPath])
+            _ = SystemInformation.runTask(toolPath: "/bin/mkdir", arguments: ["-p", tempSystemMountPath])
             _ = SystemInformation.runTask(toolPath: "/sbin/mount", arguments: ["-o", "nobrowse", "-t", "apfs", "/dev/\(systemVolumeIdentifier)", tempSystemMountPath])
         }
         if (install) {
             let injectionDylibPath = "\(injectionFolderPath)/\(injectionDylibName)"
             
             // Install dylib
-            _ = SystemInformation.runTask(toolPath: "/bin/mkdir", arguments: [injectionFolderPath])
+            _ = SystemInformation.runTask(toolPath: "/bin/mkdir", arguments: ["-p", injectionFolderPath])
             _ = SystemInformation.runTask(toolPath: "/bin/cp", arguments: ["\(frameworkPath)/RecordingIndicatorInjection.framework/Versions/A/RecordingIndicatorInjection", injectionDylibPath])
             _ = SystemInformation.runTask(toolPath: "/usr/bin/xattr", arguments: ["-d", "com.apple.quarantine", injectionDylibPath])
             _ = SystemInformation.runTask(toolPath: "/bin/rm", arguments: ["\(injectionFolderPath)/\(injectionWantsIndicatorFileName)"])
@@ -210,7 +229,7 @@ class ViewController: NSViewController {
             _ = SystemInformation.runTask(toolPath: "/usr/bin/plutil", arguments: ["-insert", "EnvironmentVariables", "-xml", dyldDict, "\(tempSystemMountPath)/System/Library/LaunchAgents/com.apple.controlcenter.plist"])
             
             // Bless snapshot
-            _ = SystemInformation.runTask(toolPath: "/usr/sbin/bless", arguments: ["--folder", "\(tempSystemMountPath)/System/Library/CoreServices", "--bootefi", "--create-snapshot"])
+            _ = SystemInformation.runTask(toolPath: "/usr/sbin/bless", arguments: ["--mount", tempSystemMountPath, "--bootefi", "--create-snapshot"])
         } else {
             _ = SystemInformation.runTask(toolPath: "/usr/sbin/bless", arguments: ["--mount", tempSystemMountPath, "--bootefi", "--last-sealed-snapshot"])
             /* We cannot yank out indicator_injection.dylib or re-enable library validation. Doing so breaks WindowServer and Control
@@ -256,6 +275,10 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func updateAvailableClicked(_ sender: Any) {
+        AppDelegate.current.promptForUpdateAvailable()
+    }
+    
     @IBAction func indicatorSwitchToggled(_ sender: Any) {
         if (SystemInformation.shared.securityAllowsToggling) {
             updateIndicatorInjection()
@@ -269,7 +292,7 @@ class ViewController: NSViewController {
             AppDelegate.showOptionSheet(title: title, text: text, firstButtonText: "Open FileVault Preferences", secondButtonText: "Cancel", thirdButtonText: "") { response in
                 self.reloadSwitchState()
                 if (response == .alertFirstButtonReturn) {
-                    NSWorkspace.shared.open(URL(string:"x-apple.systempreferences:com.apple.preference.security?FDE")!)
+                    AppDelegate.current.safelyOpenURL("x-apple.systempreferences:com.apple.preference.security?FDE")
                 }
             }
             return
@@ -305,7 +328,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func learnMoreButtonClicked(_ sender: Any) {
-        NSWorkspace.shared.open(URL(string:"https://github.com/cormiertyshawn895/RecordingIndicatorUtility")!)
+        AppDelegate.current.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility")
     }
 }
 

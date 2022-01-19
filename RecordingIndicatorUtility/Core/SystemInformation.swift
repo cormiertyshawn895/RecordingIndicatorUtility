@@ -20,6 +20,9 @@ class SystemInformation {
         let sipStatus = Process.runNonAdminTask(toolPath: "/usr/bin/csrutil", arguments: ["status"])
         isSIPEnabled = !sipStatus.lowercased().contains("disabled")
         
+        let processInfo = ProcessInfo()
+        isLegacyOS = !processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 12, minorVersion: 2, patchVersion: 0))
+        
         _oneTimeCheckAuthenticatedRoot()
         
         let lastRebootAll = Process.runNonAdminTask(toolPath: "/usr/bin/last", arguments: ["reboot"])
@@ -27,6 +30,13 @@ class SystemInformation {
         if let last = lastRebootByLine.first {
             lastSystemBootTime = String(last)
         }
+        
+        if let path = Bundle.main.path(forResource: "SupportPath", ofType: "plist"),
+            let loaded = NSDictionary(contentsOfFile: path) as? Dictionary<String, Any> {
+            self.configurationDictionary = loaded
+        }
+        
+        self.checkForConfigurationUpdates()
     }
     
     func _oneTimeCheckAuthenticatedRoot() {
@@ -95,6 +105,7 @@ class SystemInformation {
         return components.last
     }
     
+    private(set) public var isLegacyOS: Bool = false
     private(set) public var isSIPEnabled: Bool = true
     private(set) public var isAuthenticatedRootEnabled: Bool = true
     private(set) public var lastSystemBootTime: String?
@@ -183,4 +194,83 @@ class SystemInformation {
         guard let identifier = String(bytes: data, encoding: .ascii) else { return "unknown" }
         return identifier.trimmingCharacters(in: .controlCharacters)
     }
+    
+    // MARK: - Update Configuration
+    func checkForConfigurationUpdates() {
+        guard let support = self.supportPath, let configurationPath = URL(string: support) else { return }
+        self.downloadAndParsePlist(plistPath: configurationPath) { (newDictionary) in
+            self.configurationDictionary = newDictionary
+        }
+    }
+    
+    func downloadAndParsePlist(plistPath: URL, completed: @escaping ((Dictionary<String, Any>) -> ())) {
+        let task = URLSession.shared.dataTask(with: plistPath) { (data, response, error) in
+            if error != nil {
+                print("Error loading \(plistPath). \(String(describing: error))")
+            }
+            do {
+                let data = try Data(contentsOf:plistPath)
+                if let newDictionary = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? Dictionary<String, Any> {
+                    print("Downloaded dictionary \(String(describing: self.configurationDictionary))")
+                    completed(newDictionary)
+                }
+            } catch {
+                print("Error loading fetched support data. \(error)")
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func refreshUpdateBadge() {
+        self.syncMainQueue {
+            if self.hasNewerVersion {
+                print("update available")
+                AppDelegate.rootVC?.reloadUpdateButton()
+            }
+        }
+    }
+    
+    var hasNewerVersion: Bool {
+        get {
+            if let versionNumber = Bundle.main.cfBundleVersionInt, let remoteVersion = self.latestBuildNumber {
+                print("\(versionNumber), \(remoteVersion)")
+                if (versionNumber < remoteVersion) {
+                    return true
+                }
+            }
+        return false
+        }
+    }
+    
+    private var configurationDictionary: Dictionary<String, Any>? {
+        didSet {
+            self.refreshUpdateBadge()
+        }
+    }
+    
+    var newVersionVisibleTitle: String? {
+        return configurationDictionary?["NewVersionVisibleTitle"] as? String
+    }
+
+    var newVersionChangelog: String? {
+        return configurationDictionary?["NewVersionChangelog"] as? String
+    }
+    
+    var latestZIP: String? {
+        return configurationDictionary?["LatestZIP"] as? String
+    }
+    
+    var latestBuildNumber: Int? {
+        return configurationDictionary?["LatestBuildNumber"] as? Int
+    }
+    
+    var supportPath: String? {
+        return configurationDictionary?["SupportPathURL"] as? String
+    }
+    
+    var releasePage: String? {
+        return configurationDictionary?["ReleasePage"] as? String
+    }
+    
 }

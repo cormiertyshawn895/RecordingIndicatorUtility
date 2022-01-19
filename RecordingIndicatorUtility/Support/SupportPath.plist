@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NewVersionVisibleTitle</key>
+    <string>Recording Indicator Utility 1.0 (Build 6) is available.</string>
+	<key>NewVersionChangelog</key>
+    <string>Recording Indicator Utility lets you turn off the microphone recording indicator light, and supports macOS Monterey, including macOS version 12.2, 12.1, 12.0.1, and 12.0.
+</string>
+	<key>LatestZIP</key>
+	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.0/RecordingIndicatorUtility.1.0.zip</string>
+	<key>LatestBuildNumber</key>
+	<integer>6</integer>
+	<key>SupportPathURL</key>
+	<string>https://raw.githubusercontent.com/cormiertyshawn895/RecordingIndicatorUtility/master/RecordingIndicatorUtility/Support/SupportPath.plist</string>
+	<key>ReleasePage</key>
+	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases</string>
+</dict>
+</plist>

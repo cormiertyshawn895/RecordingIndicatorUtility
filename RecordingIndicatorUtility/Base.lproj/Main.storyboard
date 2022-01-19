@@ -385,6 +385,19 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="cfg-7B-dtO"/>
+                                        <menuItem title="Troubleshooting Tips" id="sIq-sq-d9J">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="tipsClicked:" target="Voe-Tx-rLC" id="PCK-o4-3qB"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Frequently Asked Questions" id="Qzk-Rh-f1j">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="frequentlyAskedQuestionsClicked:" target="Voe-Tx-rLC" id="3yG-f2-L6c"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="vva-KU-toI"/>
                                         <menuItem title="Get Help from Community" id="RNR-fU-hTQ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -455,18 +468,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="preview-on" id="AVC-al-USi"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WHS-vb-Ezz">
-                                <rect key="frame" x="177" y="529" width="35" height="24"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="cc-selected" id="9ma-wH-7WR"/>
-                            </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j5D-z1-MxL">
-                                <rect key="frame" x="217" y="534" width="116" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Sat Jan 1  9:41 AM" id="jgM-1K-f84">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="12" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mh5-rt-m30">
                                 <rect key="frame" x="17" y="64" width="316" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -509,7 +510,7 @@
                                         </progressIndicator>
                                     </subviews>
                                 </view>
-                                <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="fillColor" name="BoxBackground"/>
                             </box>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D2k-bp-ipV">
                                 <rect key="frame" x="88" y="13" width="174" height="32"/>
@@ -541,14 +542,53 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </box>
+                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Li0-Wz-Bcy">
+                                <rect key="frame" x="178" y="531" width="155" height="24"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WHS-vb-Ezz">
+                                        <rect key="frame" x="0.0" y="0.0" width="35" height="24"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="cc-selected" id="9ma-wH-7WR"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j5D-z1-MxL">
+                                        <rect key="frame" x="41" y="4" width="116" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Sat Jan 1  9:41 AM" id="jgM-1K-f84">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fkT-aN-ZVw" customClass="PopButton" customModule="Recording_Indicator_Utility" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="2Ew-tA-f1c"/>
+                                            <constraint firstAttribute="width" constant="120" id="Cfj-Ve-IBF"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title="Update Available" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="fk9-RY-KwO">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="updateAvailableClicked:" target="XfG-lQ-9wD" id="EIe-b5-e0s"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="j5D-z1-MxL" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="7" id="DDj-BM-Tm7"/>
-                            <constraint firstItem="WHS-vb-Ezz" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="4" id="NgV-kX-Nf3"/>
-                            <constraint firstItem="j5D-z1-MxL" firstAttribute="leading" secondItem="WHS-vb-Ezz" secondAttribute="trailing" constant="7" id="akg-AX-1AR"/>
+                            <constraint firstItem="Li0-Wz-Bcy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="2" id="6wb-70-77U"/>
                             <constraint firstItem="D2k-bp-ipV" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="e0j-p6-1LF"/>
+                            <constraint firstAttribute="trailing" secondItem="Li0-Wz-Bcy" secondAttribute="trailing" constant="17" id="hyA-RJ-dzB"/>
                             <constraint firstAttribute="bottom" secondItem="D2k-bp-ipV" secondAttribute="bottom" constant="20" symbolic="YES" id="x0b-di-qpg"/>
-                            <constraint firstAttribute="trailing" secondItem="j5D-z1-MxL" secondAttribute="trailing" constant="19" id="zF4-b9-wJC"/>
                         </constraints>
                     </view>
                     <connections>
@@ -561,6 +601,8 @@
                         <outlet property="previewImageView" destination="lcg-GI-KaB" id="brK-mz-3sl"/>
                         <outlet property="progressSpinner" destination="jP7-1Q-ips" id="Zup-Zd-avM"/>
                         <outlet property="raiseSecurityButton" destination="D2k-bp-ipV" id="uUC-5N-bOT"/>
+                        <outlet property="statusItemImageView" destination="WHS-vb-Ezz" id="hwE-Qo-32N"/>
+                        <outlet property="updateButton" destination="fkT-aN-ZVw" id="caJ-98-kGe"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -664,6 +706,9 @@
         <image name="xmark.circle.fill" catalog="system" width="20" height="20"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BoxBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>
