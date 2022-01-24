@@ -15,6 +15,8 @@
 		040A00472793D92C009D0DBA /* SystemInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A00462793D92C009D0DBA /* SystemInformation.swift */; };
 		040A004E2793DD85009D0DBA /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A004D2793DD85009D0DBA /* STPrivilegedTask.m */; };
 		040A00512793DE11009D0DBA /* Process-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A00502793DE11009D0DBA /* Process-Extension.swift */; };
+		040C009B279B57D500BDD1F5 /* ExceptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040C009A279B57D500BDD1F5 /* ExceptionViewController.swift */; };
+		040C009E279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C009D279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m */; };
 		042A1F452793FB150000E0CB /* RecordingIndicatorInjection.h in Headers */ = {isa = PBXBuildFile; fileRef = 042A1F442793FB150000E0CB /* RecordingIndicatorInjection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		042A1F482793FB150000E0CB /* RecordingIndicatorInjection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */; };
 		042A1F492793FB150000E0CB /* RecordingIndicatorInjection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -25,6 +27,12 @@
 		044BEB1227964CE500402588 /* Bundle-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB1127964CE500402588 /* Bundle-Extension.swift */; };
 		044BEB14279653F600402588 /* PopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB13279653F600402588 /* PopButton.swift */; };
 		044BEB162796540A00402588 /* HoverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB152796540A00402588 /* HoverButton.swift */; };
+		045769AE279BF59500916D4B /* CompatibilityRevision in Resources */ = {isa = PBXBuildFile; fileRef = 045769AD279BF59500916D4B /* CompatibilityRevision */; };
+		045769B0279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769AF279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift */; };
+		045769B2279BFE2E00916D4B /* AppException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769B1279BFE2E00916D4B /* AppException.swift */; };
+		045769B4279BFE5700916D4B /* AppExceptionTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769B3279BFE5700916D4B /* AppExceptionTableCellView.swift */; };
+		045769B6279BFE7600916D4B /* ExceptionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769B5279BFE7600916D4B /* ExceptionTableView.swift */; };
+		0477DE6D279C8D1700E732FA /* NSView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477DE6C279C8D1700E732FA /* NSView-Extension.swift */; };
 		04BDB1612793F3D300703576 /* String-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB1602793F3D300703576 /* String-Extension.swift */; };
 		04CF9C242793C159000F79AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF9C232793C159000F79AE /* AppDelegate.swift */; };
 		04CF9C262793C159000F79AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF9C252793C159000F79AE /* ViewController.swift */; };
@@ -67,6 +75,9 @@
 		040A004C2793DD85009D0DBA /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		040A004D2793DD85009D0DBA /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		040A00502793DE11009D0DBA /* Process-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Process-Extension.swift"; sourceTree = "<group>"; };
+		040C009A279B57D500BDD1F5 /* ExceptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewController.swift; sourceTree = "<group>"; };
+		040C009C279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSColor+RIUAlternatingColor.h"; sourceTree = "<group>"; };
+		040C009D279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSColor+RIUAlternatingColor.m"; sourceTree = "<group>"; };
 		042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RecordingIndicatorInjection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		042A1F442793FB150000E0CB /* RecordingIndicatorInjection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingIndicatorInjection.h; sourceTree = "<group>"; };
 		042A1F4E2793FB1A0000E0CB /* NSObject+RecordingIndicatorInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RecordingIndicatorInjection.m"; sourceTree = "<group>"; };
@@ -77,6 +88,13 @@
 		044BEB1127964CE500402588 /* Bundle-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Extension.swift"; sourceTree = "<group>"; };
 		044BEB13279653F600402588 /* PopButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopButton.swift; sourceTree = "<group>"; };
 		044BEB152796540A00402588 /* HoverButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoverButton.swift; sourceTree = "<group>"; };
+		045769AD279BF59500916D4B /* CompatibilityRevision */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CompatibilityRevision; sourceTree = "<group>"; };
+		045769AF279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RangeReplaceableCollection-Extension.swift"; sourceTree = "<group>"; };
+		045769B1279BFE2E00916D4B /* AppException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppException.swift; sourceTree = "<group>"; };
+		045769B3279BFE5700916D4B /* AppExceptionTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExceptionTableCellView.swift; sourceTree = "<group>"; };
+		045769B5279BFE7600916D4B /* ExceptionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionTableView.swift; sourceTree = "<group>"; };
+		045769B7279BFFFE00916D4B /* AppKitRedeclaration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKitRedeclaration.h; sourceTree = "<group>"; };
+		0477DE6C279C8D1700E732FA /* NSView-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView-Extension.swift"; sourceTree = "<group>"; };
 		04BDB1602793F3D300703576 /* String-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Extension.swift"; sourceTree = "<group>"; };
 		04CF9C202793C159000F79AE /* Recording Indicator Utility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recording Indicator Utility.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CF9C232793C159000F79AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +144,7 @@
 		042A1F432793FB150000E0CB /* RecordingIndicatorInjection */ = {
 			isa = PBXGroup;
 			children = (
+				045769B7279BFFFE00916D4B /* AppKitRedeclaration.h */,
 				042A1F442793FB150000E0CB /* RecordingIndicatorInjection.h */,
 				042A1F4F2793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.h */,
 				042A1F4E2793FB1A0000E0CB /* NSObject+RecordingIndicatorInjection.m */,
@@ -136,6 +155,7 @@
 		044BEB0927963D5600402588 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				045769AD279BF59500916D4B /* CompatibilityRevision */,
 				044BEB0A27963D6200402588 /* SupportPathTemplate.xml */,
 				044BEB0B27963D6200402588 /* SupportPath.plist */,
 			);
@@ -147,6 +167,7 @@
 			children = (
 				04CF9C252793C159000F79AE /* ViewController.swift */,
 				040A00402793CDC2009D0DBA /* SheetViewController.swift */,
+				040C009A279B57D500BDD1F5 /* ExceptionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -164,9 +185,13 @@
 			isa = PBXGroup;
 			children = (
 				044BEB1127964CE500402588 /* Bundle-Extension.swift */,
+				0477DE6C279C8D1700E732FA /* NSView-Extension.swift */,
 				044BEB0F27964C8200402588 /* SystemInformation-Extension.swift */,
 				040A00502793DE11009D0DBA /* Process-Extension.swift */,
+				045769AF279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift */,
 				04BDB1602793F3D300703576 /* String-Extension.swift */,
+				040C009C279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.h */,
+				040C009D279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -175,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				04CF9C232793C159000F79AE /* AppDelegate.swift */,
+				045769B1279BFE2E00916D4B /* AppException.swift */,
 				040A00422793D3FC009D0DBA /* QRCodeGenerator.swift */,
 				040A00462793D92C009D0DBA /* SystemInformation.swift */,
 			);
@@ -184,9 +210,11 @@
 		04B0BD472794CEBE005867AF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				045769B3279BFE5700916D4B /* AppExceptionTableCellView.swift */,
+				045769B5279BFE7600916D4B /* ExceptionTableView.swift */,
+				040A003E2793CBF4009D0DBA /* GradientBox.swift */,
 				044BEB152796540A00402588 /* HoverButton.swift */,
 				044BEB13279653F600402588 /* PopButton.swift */,
-				040A003E2793CBF4009D0DBA /* GradientBox.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,6 +358,7 @@
 			files = (
 				044BEB0D27963D6200402588 /* SupportPath.plist in Resources */,
 				04CF9C282793C15A000F79AE /* Assets.xcassets in Resources */,
+				045769AE279BF59500916D4B /* CompatibilityRevision in Resources */,
 				04CF9C2B2793C15A000F79AE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,12 +400,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				04CF9C262793C159000F79AE /* ViewController.swift in Sources */,
+				045769B4279BFE5700916D4B /* AppExceptionTableCellView.swift in Sources */,
 				040A00512793DE11009D0DBA /* Process-Extension.swift in Sources */,
+				045769B0279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift in Sources */,
 				04BDB1612793F3D300703576 /* String-Extension.swift in Sources */,
+				0477DE6D279C8D1700E732FA /* NSView-Extension.swift in Sources */,
 				044BEB162796540A00402588 /* HoverButton.swift in Sources */,
+				045769B6279BFE7600916D4B /* ExceptionTableView.swift in Sources */,
 				044BEB1227964CE500402588 /* Bundle-Extension.swift in Sources */,
 				040A00432793D3FC009D0DBA /* QRCodeGenerator.swift in Sources */,
+				040C009B279B57D500BDD1F5 /* ExceptionViewController.swift in Sources */,
 				044BEB14279653F600402588 /* PopButton.swift in Sources */,
+				040C009E279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m in Sources */,
 				040A00412793CDC2009D0DBA /* SheetViewController.swift in Sources */,
 				040A003D2793C659009D0DBA /* WindowController.swift in Sources */,
 				04CF9C242793C159000F79AE /* AppDelegate.swift in Sources */,
@@ -384,6 +419,7 @@
 				040A003F2793CBF4009D0DBA /* GradientBox.swift in Sources */,
 				044BEB1027964C8200402588 /* SystemInformation-Extension.swift in Sources */,
 				040A00452793D8AB009D0DBA /* MainWindow.swift in Sources */,
+				045769B2279BFE2E00916D4B /* AppException.swift in Sources */,
 				040A004E2793DD85009D0DBA /* STPrivilegedTask.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,18 +634,18 @@
 				CODE_SIGN_ENTITLEMENTS = RecordingIndicatorUtility/RecordingIndicatorUtility.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Recording Indicator Utility";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For changes to the recording indicator to immediately take effect, click OK. \n\nOtherwise changes take effect when you pause an existing audio recording or start a new audio recording.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For changes to the recording indicator to immediately take effect, click OK (recommended). \n\nOtherwise changes take effect when you pause an existing audio recording or start a new audio recording.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -626,18 +662,18 @@
 				CODE_SIGN_ENTITLEMENTS = RecordingIndicatorUtility/RecordingIndicatorUtility.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Recording Indicator Utility";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For changes to the recording indicator to immediately take effect, click OK. \n\nOtherwise changes take effect when you pause an existing audio recording or start a new audio recording.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For changes to the recording indicator to immediately take effect, click OK (recommended). \n\nOtherwise changes take effect when you pause an existing audio recording or start a new audio recording.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";

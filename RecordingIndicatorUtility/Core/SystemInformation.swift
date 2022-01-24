@@ -9,6 +9,10 @@ let tempDir = "/tmp"
 let injectionFolderPath = "/Users/Shared/.recordingIndicator"
 let injectionDylibName = "indicator_injection.dylib"
 let injectionWantsIndicatorFileName = "wants_indicator"
+let injectionOnlyWantsControlCenterIndicatorFileName = "wants_cc_only"
+let injectionExceptionsPlistName = "exceptions.plist"
+let candidateSourcesPlistName = "candidate_sources.plist"
+let compatibilityRevisionFileName = "CompatibilityRevision"
 
 let hasSeveralMacOSString = "several macOS installations"
 let pickAMacOSString = "Pick a macOS installation"
@@ -111,8 +115,9 @@ class SystemInformation {
     private(set) public var lastSystemBootTime: String?
     
     var isModificationInstalled: Bool {
+        let disableLibraryValidation = Process.runNonAdminTask(toolPath: "/usr/bin/defaults", arguments: ["read", "/Library/Preferences/com.apple.security.libraryvalidation", "DisableLibraryValidation"])
         return FileManager.default.fileExists(atPath: "\(injectionFolderPath)/\(injectionDylibName)")
-        && Process.runNonAdminTask(toolPath: "/usr/bin/defaults", arguments: ["read", "/Library/Preferences/com.apple.security.libraryvalidation", "DisableLibraryValidation"]).contains("1")
+        && disableLibraryValidation.contains("1") && !disableLibraryValidation.contains("does not exist")
         && Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchDaemons/com.apple.WindowServer.plist"]).contains("indicator_injection.dylib")
         && Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchAgents/com.apple.controlcenter.plist"]).contains("indicator_injection.dylib")
     }
@@ -135,6 +140,29 @@ class SystemInformation {
     
     var computedRecordingIndicatorOn: Bool {
         return !securityAllowsToggling || !isModificationInstalled || isWantsIndicatorFilePresent
+    }
+    
+    // This variable does not check if injection is loaded through the LaunchAgents or LaunchDaemons plist.
+    // Only use this variable to determing lockout state before the user reboots.
+    var isInjectionUpToDate: Bool {
+        return installedCompatibilityVersion >= latestCompatibilityVersion
+    }
+    
+    var installedCompatibilityVersion: Int {
+        if let installedInjectionString = try? String(contentsOfFile: "\(injectionFolderPath)/\(compatibilityRevisionFileName)").trimmingCharacters(in: .whitespacesAndNewlines),
+           let installedVersion = Int(installedInjectionString) {
+            return installedVersion
+        }
+        return 0
+    }
+    
+    var latestCompatibilityVersion: Int {
+        if let resourcePath = Bundle.main.resourcePath,
+           let latestInjectionString = try? String(contentsOfFile: "\(resourcePath)/\(compatibilityRevisionFileName)").trimmingCharacters(in: .whitespacesAndNewlines),
+           let latestVersion = Int(latestInjectionString) {
+            return latestVersion
+        }
+        return 0
     }
     
     static func runUnameToPreAuthenticate() -> OSStatus {

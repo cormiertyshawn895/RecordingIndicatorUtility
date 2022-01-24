@@ -4,9 +4,12 @@
 //
 
 import Cocoa
-import AVFAudio
 
 let tempSystemMountPath = "/tmp/system_mount"
+
+enum WaitingForRestartReason: Int {
+    case installByTogglingOff, update, exceptionsSheet
+}
 
 class ViewController: NSViewController {
     @IBOutlet weak var dateTimeLabel: NSTextField!
@@ -15,26 +18,48 @@ class ViewController: NSViewController {
     @IBOutlet weak var boxView: NSBox!
     @IBOutlet weak var imageGradientView: NSBox!
     @IBOutlet weak var updateButton: NSButton!
+    @IBOutlet weak var recordingIndicatorLabel: NSTextField!
     @IBOutlet weak var indicatorSwitch: NSSwitch!
     @IBOutlet weak var progressSpinner: NSProgressIndicator!
     @IBOutlet weak var indicatorDescription: NSTextField!
+    @IBOutlet weak var manageExceptionsButton: NSButton!
     @IBOutlet weak var learnMoreButton: NSButton!
     @IBOutlet weak var raiseSecurityButton: NSButton!
     var sheetViewController: SheetViewController?
-    var waitingForRestart: String? {
+    var exceptionViewController: ExceptionViewController?
+    var waitingForRestart: (timeStamp: String?, reason: WaitingForRestartReason?) {
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "WaitingForRestart")
+            UserDefaults.standard.setValue(newValue.timeStamp, forKey: "WaitingForRestart")
+            UserDefaults.standard.setValue((newValue.timeStamp != nil) ? (newValue.reason?.rawValue) : nil, forKey: "WaitingForRestartReason")
         }
         get {
-            return UserDefaults.standard.value(forKey: "WaitingForRestart") as? String
+            let timeStamp = UserDefaults.standard.value(forKey: "WaitingForRestart") as? String
+            var reason: WaitingForRestartReason?
+            if let rawReason = UserDefaults.standard.value(forKey: "WaitingForRestartReason") as? Int, let resolvedReason = WaitingForRestartReason(rawValue: rawReason) {
+                reason = resolvedReason
+            }
+            return (timeStamp, reason)
+        }
+    }
+    
+    var shouldShowRestartOnMainScreen: Bool {
+        switch waitingForRestart.reason {
+        case .installByTogglingOff:
+            return true
+        case .update:
+            return true
+        case .exceptionsSheet:
+            return false
+        case .none:
+            return false
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (waitingForRestart != SystemInformation.shared.lastSystemBootTime) {
-            waitingForRestart = nil
+        if (waitingForRestart.timeStamp != SystemInformation.shared.lastSystemBootTime) {
+            waitingForRestart = (nil, nil)
         }
         checkForTranslation()
         reloadSwitchState()
@@ -44,6 +69,31 @@ class ViewController: NSViewController {
         updateUI()
         checkForVersionCompatibility()
         sheetViewController = SheetViewController.instantiate()
+        exceptionViewController = ExceptionViewController.instantiate()
+        checkForInjectionUpdate()
+    }
+    
+    func checkForInjectionUpdate() {
+        if (!SystemInformation.shared.isModificationInstalled) {
+            return
+        }
+        if (!SystemInformation.shared.isInjectionUpToDate) {
+            promptForInjectionUpdate()
+        }
+    }
+    
+    func promptForInjectionUpdate() {
+        AppDelegate.showOptionSheet(title: "Recording Indicator Utility has been updated.", text: "To finish updating Recording Indicator Utility, please enter your admin password.", firstButtonText: "Enter Password…", secondButtonText: "Quit", thirdButtonText: "") { response in
+            if (response == .alertFirstButtonReturn) {
+                if (SystemInformation.runUnameToPreAuthenticate() != errAuthorizationSuccess) {
+                    self.promptForInjectionUpdate()
+                    return
+                }
+                self.beginAsyncInstallInjection(update: true)
+            } else {
+                NSApplication.shared.terminate(self)
+            }
+        }
     }
     
     func checkForTranslation() {
@@ -56,7 +106,18 @@ class ViewController: NSViewController {
     }
     
     func reloadSwitchState(_ animated: Bool = true) {
-        let state: NSControl.StateValue = (SystemInformation.shared.computedRecordingIndicatorOn && waitingForRestart == nil) ? .on : .off
+        var toggleIsOn = SystemInformation.shared.computedRecordingIndicatorOn
+        switch waitingForRestart.reason {
+        case .installByTogglingOff:
+            toggleIsOn = false
+        case .update:
+            break
+        case .exceptionsSheet:
+            break
+        case .none:
+            break
+        }
+        let state: NSControl.StateValue = toggleIsOn ? .on : .off
         if (animated) {
             indicatorSwitch.animator().state = state
         } else {
@@ -91,16 +152,32 @@ class ViewController: NSViewController {
     
     func updateUI() {
         let indicatorOn = indicatorSwitch.state == .on
-        if (indicatorOn) {
-            indicatorDescription.stringValue = "When microphone is in use, an orange recording indicator light appears on all connected displays."
-        } else {
-            indicatorDescription.stringValue = (waitingForRestart != nil) ? "After restarting your Mac, no recording indicator light will be shown when microphone is in use." : "No recording indicator light is shown when microphone is in use, making it ideal for live events and screencasts."
-        }
         previewImageView.image = NSImage(named: indicatorOn ? "preview-on" : "preview-off")
-        let showRaiseSecurityButton = indicatorOn && SystemInformation.shared.canRaiseSecurity
-        learnMoreButton.isHidden = showRaiseSecurityButton || (waitingForRestart != nil)
+        if (indicatorOn) {
+            indicatorDescription.stringValue = "The recording indicator light shows you when an app has access to your microphone."
+        } else {
+            indicatorDescription.stringValue = "The recording indicator light is hidden at all times, making it ideal for live events and screencasts."
+        }
+        indicatorSwitch.isEnabled = true
+        manageExceptionsButton.isHidden = !indicatorOn
+        raiseSecurityButton.title = shouldShowRestartOnMainScreen ? "Restart Now" : "Raise Security Settings"
+        switch waitingForRestart.reason {
+        case .installByTogglingOff:
+            indicatorDescription.stringValue = "After restarting your Mac, the recording indicator light will be hidden, making it ideal for live events and screencasts."
+        case .update:
+            indicatorDescription.stringValue = "Recording Indicator Utility has been updated. After restarting your Mac, you can customize the recording indicator light."
+            indicatorSwitch.isEnabled = false
+            manageExceptionsButton.isHidden = true
+            break
+        case .exceptionsSheet:
+            break
+        case .none:
+            break
+        }
+        
+        let canRaiseSecurity = indicatorOn && SystemInformation.shared.canRaiseSecurity
+        learnMoreButton.isHidden = canRaiseSecurity || shouldShowRestartOnMainScreen
         raiseSecurityButton.isHidden = !learnMoreButton.isHidden
-        raiseSecurityButton.title = (waitingForRestart != nil) ? "Restart Now" : "Raise Security Settings"
     }
     
     func checkForVersionCompatibility() {
@@ -113,7 +190,7 @@ class ViewController: NSViewController {
         AppDelegate.showOptionSheet(title: "Update to the latest version of Recording Indicator Utility.",
                                     text: "This version of Recording Indicator Utility is only designed and tested for macOS Monterey, and does not support macOS \(osFullVersion.majorVersion).",
                                     firstButtonText: "Check for Updates",
-                                    secondButtonText: "Continue Anyways",
+                                    secondButtonText: "Continue Anyway",
                                     thirdButtonText: "Quit") { (response) in
             if (response == .alertFirstButtonReturn) {
                 AppDelegate.current.checkForUpdates()
@@ -125,63 +202,70 @@ class ViewController: NSViewController {
     }
     
     func updateIndicatorInjection() {
-        if (SystemInformation.runUnameToPreAuthenticate() != errAuthorizationSuccess) {
-            self.reloadSwitchState()
-            return
-        }
-        
         let alreadyInstalled = SystemInformation.shared.isModificationInstalled
-        let configFilePath = "\(injectionFolderPath)/\(injectionWantsIndicatorFileName)"
+        let wantsIndicatorFilePath = "\(injectionFolderPath)/\(injectionWantsIndicatorFileName)"
         let wantsIndicatorOn = indicatorSwitch.state == .on
         if (wantsIndicatorOn) {
             print("User wants indicator on")
-            waitingForRestart = nil
-            _ = SystemInformation.runTask(toolPath: "/usr/bin/touch", arguments: [configFilePath])
+            switch waitingForRestart.reason {
+            case .installByTogglingOff:
+                waitingForRestart = (nil, nil)
+            case .update:
+                break
+            case .exceptionsSheet:
+                break
+            case .none:
+                waitingForRestart = (nil, nil)
+            }
+            _ = Process.runNonAdminTask(toolPath: "/usr/bin/touch", arguments: [wantsIndicatorFilePath])
+            _ = Process.runNonAdminTask(toolPath: "/bin/chmod", arguments: ["777", wantsIndicatorFilePath])
             if (alreadyInstalled) {
-                self.startZeroSecondRecording()
+                AppDelegate.current.startZeroSecondRecording()
             }
             updateUI()
         } else {
             print("User wants indicator off")
-            _ = SystemInformation.runTask(toolPath: "/bin/rm", arguments: [configFilePath])
             if (alreadyInstalled) {
-                self.startZeroSecondRecording()
+                _ = Process.runNonAdminTask(toolPath: "/bin/rm", arguments: [wantsIndicatorFilePath])
+                AppDelegate.current.startZeroSecondRecording()
                 updateUI()
             } else {
+                if (SystemInformation.runUnameToPreAuthenticate() != errAuthorizationSuccess) {
+                    self.reloadSwitchState()
+                    return
+                }
                 beginAsyncInstallInjection()
             }
         }
     }
     
-    func startZeroSecondRecording() {
-        // Begin a 0 second long recording to force WindowServer and Control Center refresh their recording state.
-        // No audio is actually recorded or saved.
-        let url = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("discarded"))
-        do {
-            let recorder = try AVAudioRecorder(url: url, settings: [:])
-            recorder.record(forDuration: 0)
-        } catch {
-            print("Unable to simulate a zero second recording to refresh microphone indicator, \(error)")
-        }
-        updateUI()
-    }
-    
-    func beginAsyncInstallInjection(_ install: Bool = true) {
+    func beginAsyncInstallInjection(_ install: Bool = true, update: Bool = false, forExceptionsSheet: Bool = false) {
         if (!install) {
-            self.waitingForRestart = nil
+            waitingForRestart = (nil, nil)
         }
         setActionButtonAvailability(available: false)
         DispatchQueue.global(qos: .userInteractive).async {
-            let result = self.sync_installInjection(install)
+            let result = self.sync_installInjection(install, update: update, forExceptionsSheet: forExceptionsSheet)
             print("\(install ? "Install" : "Uninstall") result is \(result)")
-            if (install) {
-                self.waitingForRestart = SystemInformation.shared.lastSystemBootTime
+            let bootTime = SystemInformation.shared.lastSystemBootTime
+            if (forExceptionsSheet) {
+                self.waitingForRestart = (bootTime, .exceptionsSheet)
+            } else if (update) {
+                self.waitingForRestart = (bootTime, .update)
+            } else if (install) {
+                self.waitingForRestart = (bootTime, .installByTogglingOff)
+            } else {
+                self.waitingForRestart = (nil, nil)
             }
             DispatchQueue.main.async {
                 self.setActionButtonAvailability(available: true)
                 self.updateUI()
                 if (install) {
-                    AppDelegate.showOptionSheet(title: "Turning off the recording indicator light requires a restart to take effect.", text: "Do you want to restart now?", firstButtonText: "Restart Now", secondButtonText: "Not Now", thirdButtonText: "") { response in
+                    var title = update ? "Updating Recording Indicator Utility requires a restart to take effect." : "Turning off the recording indicator light requires a restart to take effect."
+                    if (forExceptionsSheet) {
+                        title = "You need to restart your Mac before customizing the recording indicator."
+                    }
+                    AppDelegate.showOptionSheet(title: title, text: "Do you want to restart now?", firstButtonText: "Restart Now", secondButtonText: "Not Now", thirdButtonText: "") { response in
                         if (response == .alertFirstButtonReturn) {
                             self.performReboot()
                         }
@@ -191,8 +275,9 @@ class ViewController: NSViewController {
         }
     }
     
-    func sync_installInjection(_ install: Bool = true) -> Bool {
+    func sync_installInjection(_ install: Bool = true, update: Bool = false, forExceptionsSheet: Bool = false) -> Bool {
         let frameworkPath = Bundle.main.privateFrameworksPath!.fileSystemString
+        let resourcePath = Bundle.main.resourcePath!.fileSystemString
         let mount = Process.runNonAdminTask(toolPath: "/sbin/mount", arguments: [])
         let alreadyMounted = mount.contains(tempSystemMountPath)
         print(mount)
@@ -217,8 +302,19 @@ class ViewController: NSViewController {
             // Install dylib
             _ = SystemInformation.runTask(toolPath: "/bin/mkdir", arguments: ["-p", injectionFolderPath])
             _ = SystemInformation.runTask(toolPath: "/bin/cp", arguments: ["\(frameworkPath)/RecordingIndicatorInjection.framework/Versions/A/RecordingIndicatorInjection", injectionDylibPath])
+            _ = SystemInformation.runTask(toolPath: "/bin/cp", arguments: ["\(resourcePath)/CompatibilityRevision", "\(injectionFolderPath)/\(compatibilityRevisionFileName)"])
             _ = SystemInformation.runTask(toolPath: "/usr/bin/xattr", arguments: ["-d", "com.apple.quarantine", injectionDylibPath])
-            _ = SystemInformation.runTask(toolPath: "/bin/rm", arguments: ["\(injectionFolderPath)/\(injectionWantsIndicatorFileName)"])
+            let wantsIndicatorFilePath = "\(injectionFolderPath)/\(injectionWantsIndicatorFileName)"
+            if (!update && !forExceptionsSheet) {
+                _ = SystemInformation.runTask(toolPath: "/bin/rm", arguments: [wantsIndicatorFilePath])
+            }
+            if (forExceptionsSheet) {
+                _ = SystemInformation.runTask(toolPath: "/usr/bin/touch", arguments: [wantsIndicatorFilePath])
+            }
+            _ = SystemInformation.runTask(toolPath: "/usr/bin/touch", arguments: ["\(injectionFolderPath)/\(injectionExceptionsPlistName)"])
+            _ = SystemInformation.runTask(toolPath: "/usr/bin/touch", arguments: ["\(injectionFolderPath)/\(candidateSourcesPlistName)"])
+            _ = SystemInformation.runTask(toolPath: "/bin/chmod", arguments: ["777", injectionFolderPath])
+            _ = SystemInformation.runTask(toolPath: "/bin/chmod", arguments: ["-R", "777", injectionFolderPath])
             
             // Allow injection
             _ = SystemInformation.runTask(toolPath: "/usr/bin/defaults", arguments: ["write", "/Library/Preferences/com.apple.security.libraryvalidation", "DisableLibraryValidation", "-bool", "true"])
@@ -246,6 +342,7 @@ class ViewController: NSViewController {
         AppDelegate.current.shouldPreventClosing = !available
         indicatorSwitch.isHidden = !available
         raiseSecurityButton.isEnabled = available
+        manageExceptionsButton.isEnabled = available
         progressSpinner.isHidden = available
         if (available) {
             progressSpinner.stopAnimation(nil)
@@ -280,14 +377,17 @@ class ViewController: NSViewController {
     }
     
     @IBAction func indicatorSwitchToggled(_ sender: Any) {
-        if (SystemInformation.shared.securityAllowsToggling) {
-            updateIndicatorInjection()
+        if (!SystemInformation.shared.securityAllowsToggling) {
+            checkAndShowAppropriateInstructions()
             return
         }
-        
+        updateIndicatorInjection()
+    }
+    
+    func checkAndShowAppropriateInstructions() {
         if (SystemInformation.shared.isFileVaultEnabled) {
             let decryptionProgress = SystemInformation.shared.fileVaultDecryptionProgress
-            let title = (decryptionProgress != nil) ? "To configure the recording indicator, FileVault needs to finish decrypting." : "To configure the recording indicator, you need to turn off FileVault first."
+            let title = (decryptionProgress != nil) ? "To customize the recording indicator, FileVault needs to finish decrypting." : "To customize the recording indicator, you need to turn off FileVault first."
             let text = (decryptionProgress != nil) ? "FileVault decryption is \(decryptionProgress!)% complete. You can follow along the latest progress in the FileVault pane of Security & Privacy preferences." : "Open the FileVault pane of Security & Privacy preferences. Click the lock to make changes, then click Turn Off FileVault."
             AppDelegate.showOptionSheet(title: title, text: text, firstButtonText: "Open FileVault Preferences", secondButtonText: "Cancel", thirdButtonText: "") { response in
                 self.reloadSwitchState()
@@ -307,9 +407,39 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func manageExceptionsClicked(_ sender: Any) {
+        if (!SystemInformation.shared.securityAllowsToggling) {
+            checkAndShowAppropriateInstructions()
+            return
+        }
+        
+        let alreadyInstalled = SystemInformation.shared.isModificationInstalled
+        if (!alreadyInstalled) {
+            if (self.waitingForRestart.reason == .exceptionsSheet) {
+                AppDelegate.showOptionSheet(title: "Restart Required", text: "After restarting your Mac, open Recording Indicator Utility again to customize the recording indicator light on a per-app basis.", firstButtonText: "Restart Now", secondButtonText: "Cancel", thirdButtonText: "") { response in
+                    if (response == .alertFirstButtonReturn) {
+                        self.performReboot()
+                    }
+                }
+                return
+            }
+            
+            if (SystemInformation.runUnameToPreAuthenticate() == errAuthorizationSuccess) {
+                beginAsyncInstallInjection(forExceptionsSheet: true)
+            }
+            return
+        }
+
+        guard let exceptionVC = self.exceptionViewController else {
+            return
+        }
+        
+        self.presentAsSheet(exceptionVC)
+    }
+    
     @IBAction func raiseSecurityButtonClicked(_ sender: Any) {
         // "Restart Now"
-        if (waitingForRestart != nil) {
+        if (shouldShowRestartOnMainScreen) {
             performReboot()
             return
         }
@@ -320,7 +450,7 @@ class ViewController: NSViewController {
             self.applyRaisedSecuritySettings(true)
             return
         }
-        AppDelegate.showOptionSheet(title: "Apply last sealed system snapshot", text: "Before raising the security setting of your Mac, Recording Indicator Utility must apply the last sealed system snapshot. This only affects the macOS system volume and does not affect your apps or data.\n\nIf your Mac misbehaves after continuing, choose Apple menu > Restart or force restart. Once your Mac starts up, reopen Recording Indicator Utility to repeat this process.", firstButtonText: "Continue", secondButtonText: "Cancel", thirdButtonText: "") { response in
+        AppDelegate.showOptionSheet(title: "Raise Security Settings", text: "After raising security settings, the recording indicator will no longer be hidden in apps or system-wide.\n\nTo continue, Recording Indicator Utility will apply the last sealed system snapshot. This only affects the macOS system volume and does not affect your apps or data.\n\nIf your Mac misbehaves after continuing, choose Apple menu > Restart or force restart. Once your Mac starts up, reopen Recording Indicator Utility to repeat this process.", firstButtonText: "Continue", secondButtonText: "Cancel", thirdButtonText: "") { response in
             if (response == .alertFirstButtonReturn) {
                 self.applyRaisedSecuritySettings()
             }

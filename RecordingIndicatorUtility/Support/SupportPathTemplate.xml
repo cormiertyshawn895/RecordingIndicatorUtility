@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NewVersionVisibleTitle</key>
-    <string>Recording Indicator Utility $(VERSION) is available.</string>
+    <string>Recording Indicator Utility $(VERSION) lets you customize the recording indicator even more.</string>
 	<key>NewVersionChangelog</key>
-    <string>Recording Indicator Utility lets you turn off the microphone recording indicator light, and supports macOS Monterey, including macOS version 12.2, 12.1, 12.0.1, and 12.0.
+    <string>• Turn off the recording indicator system-wide
+• Hide the recording indicator by selecting specific apps
+• Hide the recording indicator in full screen
 </string>
 	<key>LatestZIP</key>
 	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/$(MARKETING_VERSION)/RecordingIndicatorUtility.$(MARKETING_VERSION).zip</string>

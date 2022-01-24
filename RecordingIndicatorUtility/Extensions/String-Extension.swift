@@ -6,10 +6,32 @@
 import Foundation
 
 extension String {
+    var lastPathComponent: String {
+        return (self as NSString).lastPathComponent
+    }
+    
+    var lastPathComponentWithoutExtension: String {
+        return (lastPathComponent as NSString).deletingPathExtension
+    }
+
+    var rootBundlePath: String {
+        return self.rootPathUntilExtension("app") ?? self.rootPathUntilExtension("prefPane") ?? self
+    }
+    
     var fileSystemString: String {
         let cStr = (self as NSString).fileSystemRepresentation
         let swiftString = String(cString: cStr)
         return swiftString
+    }
+    
+    func rootPathUntilExtension(_ extensionString: String) -> String? {
+        let separatedByExtension = self.components(separatedBy: ".\(extensionString)/")
+        if (separatedByExtension.count > 1) {
+            if let first = separatedByExtension.first {
+                return first.appending(".\(extensionString)")
+            }
+        }
+        return nil
     }
     
     func groups(for regexPattern: String) -> [[String]] {

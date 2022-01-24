@@ -28,7 +28,7 @@ class SheetViewController: NSViewController {
         get {
             switch (self.guidanceType) {
             case .asLowering, .intelLowering:
-                return "To turn off the recording indicator, you need to disable System Integrity Protection and allow non-sealed system snapshots."
+                return "To customize the recording indicator, you need to disable System Integrity Protection and allow non-sealed system snapshots."
             case .asRaising:
                 return "The last sealed system volume snapshot has been successfully restored. You can now enable Full Security."
             case .asRaisingAlreadySealed:
@@ -69,9 +69,15 @@ class SheetViewController: NSViewController {
     }
     
     override func viewWillAppear() {
+        super.viewWillAppear()
+        
         updateTextAndQRCode()
         self.view.window?.preventsApplicationTerminationWhenModal = false
         self.view.window?.styleMask.remove(.resizable)
+    }
+    
+    override func cancelOperation(_ sender: Any?) {
+        self.dismiss(nil)
     }
     
     @IBAction func closeButtonClicked(_ sender: Any) {

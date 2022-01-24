@@ -1,4 +1,4 @@
-<a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.0/RecordingIndicatorUtility.1.0.zip" alt="Download Recording Indicator Utility"><img src="RecordingIndicatorUtility/Screenshots/icon.png" width="150" alt="Recording Indicator Utility App icon" align="left"/></a>
+<a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.1/RecordingIndicatorUtility.1.1.zip" alt="Download Recording Indicator Utility"><img src="RecordingIndicatorUtility/Screenshots/icon.png" width="150" alt="Recording Indicator Utility App icon" align="left"/></a>
 
 <div>
 <h2>Recording Indicator Utility</h2>
@@ -9,7 +9,7 @@
 </div>
 
 <p align="center">
-  <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.0/RecordingIndicatorUtility.1.0.zip" alt="Download Recording Indicator Utility"><img width="362" src="RecordingIndicatorUtility/Screenshots/resources/download-button.png" alt="Download Recording Indicator Utility"></a>
+  <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.1/RecordingIndicatorUtility.1.1.zip" alt="Download Recording Indicator Utility"><img width="362" src="RecordingIndicatorUtility/Screenshots/resources/download-button.png" alt="Download Recording Indicator Utility"></a>
 <p>
 <p align="center">
   <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases" alt="View Release Page"><img width="160" src="RecordingIndicatorUtility/Screenshots/resources/release-button.png" alt="View Release Page"></a>
@@ -33,12 +33,28 @@ Recording Indicator Utility will not harm your Mac. This alert shows up because 
 
 ---
 
+### Using Recording Indicator Utility
+
+By default, the recording indicator light shows you when an app has access to your microphone. Click the blue toggle to turn off the recording indicator light across all apps. You can also click “Per-App Settings” to see more options.
+
+![](RecordingIndicatorUtility/Screenshots/screenshot-enabled.jpg)
+
+By customizing per-app settings, you can choose to hide the recording indicator of your favorite apps or in full-screen apps. Click “+” to add an app currently using your microphone, or click “Choose App…” and pick one in Finder.
+
+![](RecordingIndicatorUtility/Screenshots/screenshot-per-app-settings.jpg)
+
+When the “Recording Indicator” toggle is off, the recording indicator light is hidden at all times, making it ideal for professionals who [run live events](https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/), [record screencasts](https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording), or use a [system-wide volume equalizer](https://www.globaldelight.com/faq/boom3dmac).
+
+![](RecordingIndicatorUtility/Screenshots/screenshot-disabled.jpg)
+
+---
+
 ### Frequently Asked Questions
 
 ![](RecordingIndicatorUtility/Screenshots/screenshot-prerequisite.jpg)
 
 #### Why is Recording Indicator Utility guiding me to adjust my security settings?
-To configure the recording indicator on macOS Monterey 12.2 and later, Recording Indicator Utility needs to modify two system components, [WindowServer](https://www.quora.com/OS-X-What-is-the-WindowServer-process-and-what-does-it-mean-when-it-takes-up-high-CPU) and [Control Center](https://support.apple.com/guide/mac-help/control-center-mchl50f94f8f). Both components are protected by [System Integrity Protection](https://support.apple.com/en-us/HT204899) and [covered by the seal of the signed system volume](https://support.apple.com/guide/security/signed-system-volume-security-secd698747c9/web).
+To configure the recording indicator, Recording Indicator Utility needs to modify two system components, [WindowServer](https://www.quora.com/OS-X-What-is-the-WindowServer-process-and-what-does-it-mean-when-it-takes-up-high-CPU) and [Control Center](https://support.apple.com/guide/mac-help/control-center-mchl50f94f8f). Both components are protected by [System Integrity Protection](https://support.apple.com/en-us/HT204899) and [covered by the seal of the signed system volume](https://support.apple.com/guide/security/signed-system-volume-security-secd698747c9/web).
 
 In order to modify [WindowServer](https://www.quora.com/OS-X-What-is-the-WindowServer-process-and-what-does-it-mean-when-it-takes-up-high-CPU) and [Control Center](https://support.apple.com/guide/mac-help/control-center-mchl50f94f8f), Recording Indicator Utility guides you to adjust your security settings to the appropriate level.
 
@@ -51,7 +67,7 @@ Adjusting your security settings requires starting up in macOS Recovery. Because
 #### Is it easier for my Mac to be attacked after adjusting security settings?
 Because very few Mac users turn off System Integrity Protection or allow booting from non-sealed system snapshots, there’s little incentive or payoff for attackers to target these configurations.
 
-#### Why am I guided to turn off FileVault?
+#### Why is Recording Indicator Utility guiding me to turn off FileVault?
 [When FileVault is on, macOS doesn’t permit booting from non-sealed system snapshots](https://support.apple.com/guide/security/signed-system-volume-security-secd698747c9/web#sec32d46902a), therefore you need to [turn off FileVault first](https://support.apple.com/HT204837#turnoff).
 
 #### How do I raise security settings back to their defaults?
@@ -60,13 +76,13 @@ Open Recording Indicator Utility, turn on the recording indicator, then click �
 #### Can someone use Recording Indicator Utility to monitor me without my knowledge?
 No. Your admin password is required before Recording Indicator Utility can make any changes. Recording Indicator Utility is designed to support professionals who [run live events](https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/), [record screencasts](https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording), or use a [system-wide volume equalizer](https://www.globaldelight.com/faq/boom3dmac).
 
-#### Why does Recording Indicator Utility ask to access the microphone?
+#### Why is Recording Indicator Utility asking me to access the microphone?
 The microphone recording indicator only updates when you pause an existing audio recording or start a new audio recording. For changes to the recording indicator to immediately take effect, Recording Indicator Utility requests access to the microphone to make a zero (0) second long audio recording. 
 
 The temporary recording is only used to refresh the microphone recording indicator and will be automatically discarded by macOS.
 
 #### How does Recording Indicator Utility differ from undot and YellowDot?
-Recording Indicator Utility supports macOS Monterey 12.2, allows you to turn off the recording indicator in all apps, and requires adjusting security settings.
+Recording Indicator Utility supports [macOS Monterey](https://support.apple.com/macos/upgrade) version 12.2, 12.1, 12.0.1, and 12.0, allows you to turn off the recording indicator in any app, and requires adjusting security settings.
 
 [undot](https://github.com/s4y/undot) and [YellowDot](https://lowtechguys.com/yellowdot/) only support macOS 12.1 and earlier, allow you to turn off the recording indicator in full-screen apps, and do not require adjusting security settings. 
 
