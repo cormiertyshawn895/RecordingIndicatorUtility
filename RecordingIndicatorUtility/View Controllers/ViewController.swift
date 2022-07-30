@@ -183,12 +183,12 @@ class ViewController: NSViewController {
     func checkForVersionCompatibility() {
         let processInfo = ProcessInfo()
         let osFullVersion = ProcessInfo.processInfo.operatingSystemVersion
-        let osNotRecognized = processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 13, minorVersion: 0, patchVersion: 0))
+        let osNotRecognized = processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 14, minorVersion: 0, patchVersion: 0))
         if !osNotRecognized {
             return;
         }
         AppDelegate.showOptionSheet(title: "Update to the latest version of Recording Indicator Utility.",
-                                    text: "This version of Recording Indicator Utility is only designed and tested for macOS Monterey, and does not support macOS \(osFullVersion.majorVersion).",
+                                    text: "This version of Recording Indicator Utility is only designed and tested for macOS Ventura and macOS Monterey, and does not support macOS \(osFullVersion.majorVersion).",
                                     firstButtonText: "Check for Updates",
                                     secondButtonText: "Continue Anyway",
                                     thirdButtonText: "Quit") { (response) in

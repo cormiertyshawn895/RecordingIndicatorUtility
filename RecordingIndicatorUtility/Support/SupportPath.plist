@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>NewVersionVisibleTitle</key>
-    <string>Recording Indicator Utility 1.1 (Build 11) lets you customize the recording indicator even more.</string>
+    <string>Recording Indicator Utility 1.2 (Build 12) lets you customize the recording indicator even more.</string>
 	<key>NewVersionChangelog</key>
     <string>• Turn off the recording indicator system-wide
 • Hide the recording indicator by selecting specific apps
 • Hide the recording indicator in full screen
 </string>
 	<key>LatestZIP</key>
-	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.1/RecordingIndicatorUtility.1.1.zip</string>
+	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.2/RecordingIndicatorUtility.1.2.zip</string>
 	<key>LatestBuildNumber</key>
-	<integer>11</integer>
+	<integer>12</integer>
 	<key>SupportPathURL</key>
 	<string>https://raw.githubusercontent.com/cormiertyshawn895/RecordingIndicatorUtility/master/RecordingIndicatorUtility/Support/SupportPath.plist</string>
 	<key>ReleasePage</key>

@@ -634,7 +634,7 @@
 				CODE_SIGN_ENTITLEMENTS = RecordingIndicatorUtility/RecordingIndicatorUtility.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Recording Indicator Utility";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -645,7 +645,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -662,7 +662,7 @@
 				CODE_SIGN_ENTITLEMENTS = RecordingIndicatorUtility/RecordingIndicatorUtility.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Recording Indicator Utility";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -673,7 +673,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
