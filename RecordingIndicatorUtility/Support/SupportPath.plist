@@ -3,16 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>NewVersionVisibleTitle</key>
-    <string>Recording Indicator Utility 1.2 (Build 12) lets you customize the recording indicator even more.</string>
+    <string>Recording Indicator Utility 1.3 (Build 13) improves support for macOS Ventura.</string>
 	<key>NewVersionChangelog</key>
-    <string>• Turn off the recording indicator system-wide
-• Hide the recording indicator by selecting specific apps
-• Hide the recording indicator in full screen
+    <string>• Resolves a crash on macOS Ventura for Macs with Apple Silicon
 </string>
 	<key>LatestZIP</key>
-	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.2/RecordingIndicatorUtility.1.2.zip</string>
+	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.3/RecordingIndicatorUtility.1.3.zip</string>
 	<key>LatestBuildNumber</key>
-	<integer>12</integer>
+	<integer>13</integer>
 	<key>SupportPathURL</key>
 	<string>https://raw.githubusercontent.com/cormiertyshawn895/RecordingIndicatorUtility/master/RecordingIndicatorUtility/Support/SupportPath.plist</string>
 	<key>ReleasePage</key>

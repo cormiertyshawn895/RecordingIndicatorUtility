@@ -120,6 +120,7 @@ class SystemInformation {
         && disableLibraryValidation.contains("1") && !disableLibraryValidation.contains("does not exist")
         && Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchDaemons/com.apple.WindowServer.plist"]).contains("indicator_injection.dylib")
         && Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchAgents/com.apple.controlcenter.plist"]).contains("indicator_injection.dylib")
+        && (!isAppleSilicon || Process.runNonAdminTask(toolPath: "/usr/sbin/nvram", arguments: ["boot-args"]).contains("-arm64e_preview_abi"))
     }
     
     var isWantsIndicatorFilePresent: Bool {

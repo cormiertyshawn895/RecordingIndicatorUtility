@@ -243,7 +243,9 @@ class ViewController: NSViewController {
         if (!install) {
             waitingForRestart = (nil, nil)
         }
-        setActionButtonAvailability(available: false)
+        if (install) {
+            setActionButtonAvailability(available: false)
+        }
         DispatchQueue.global(qos: .userInteractive).async {
             let result = self.sync_installInjection(install, update: update, forExceptionsSheet: forExceptionsSheet)
             print("\(install ? "Install" : "Uninstall") result is \(result)")
@@ -293,6 +295,7 @@ class ViewController: NSViewController {
             return false
         }
         if (!alreadyMounted) {
+            _ = SystemInformation.runTask(toolPath: "/usr/sbin/diskutil", arguments: ["unmount", "force", "/dev/\(systemVolumeIdentifier)"])
             _ = SystemInformation.runTask(toolPath: "/bin/mkdir", arguments: ["-p", tempSystemMountPath])
             _ = SystemInformation.runTask(toolPath: "/sbin/mount", arguments: ["-o", "nobrowse", "-t", "apfs", "/dev/\(systemVolumeIdentifier)", tempSystemMountPath])
         }
@@ -316,6 +319,11 @@ class ViewController: NSViewController {
             _ = SystemInformation.runTask(toolPath: "/bin/chmod", arguments: ["777", injectionFolderPath])
             _ = SystemInformation.runTask(toolPath: "/bin/chmod", arguments: ["-R", "777", injectionFolderPath])
             
+            // Allow arm64e preview ABI
+            if SystemInformation.shared.isAppleSilicon {
+                _ = SystemInformation.runTask(toolPath: "/usr/sbin/nvram", arguments: ["boot-args=-arm64e_preview_abi"])
+            }
+
             // Allow injection
             _ = SystemInformation.runTask(toolPath: "/usr/bin/defaults", arguments: ["write", "/Library/Preferences/com.apple.security.libraryvalidation", "DisableLibraryValidation", "-bool", "true"])
             

@@ -1,4 +1,4 @@
-<a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.2/RecordingIndicatorUtility.1.2.zip" alt="Download Recording Indicator Utility"><img src="RecordingIndicatorUtility/Screenshots/icon.png" width="150" alt="Recording Indicator Utility App icon" align="left"/></a>
+<a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.3/RecordingIndicatorUtility.1.3.zip" alt="Download Recording Indicator Utility"><img src="RecordingIndicatorUtility/Screenshots/icon.png" width="150" alt="Recording Indicator Utility App icon" align="left"/></a>
 
 <div>
 <h2>Recording Indicator Utility</h2>
@@ -9,7 +9,7 @@
 </div>
 
 <p align="center">
-  <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.2/RecordingIndicatorUtility.1.2.zip" alt="Download Recording Indicator Utility"><img width="362" src="RecordingIndicatorUtility/Screenshots/resources/download-button.png" alt="Download Recording Indicator Utility"></a>
+  <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/1.3/RecordingIndicatorUtility.1.3.zip" alt="Download Recording Indicator Utility"><img width="362" src="RecordingIndicatorUtility/Screenshots/resources/download-button.png" alt="Download Recording Indicator Utility"></a>
 <p>
 <p align="center">
   <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases" alt="View Release Page"><img width="160" src="RecordingIndicatorUtility/Screenshots/resources/release-button.png" alt="View Release Page"></a>
