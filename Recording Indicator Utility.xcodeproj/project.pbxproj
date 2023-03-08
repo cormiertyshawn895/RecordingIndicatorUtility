@@ -15,23 +15,12 @@
 		040A00472793D92C009D0DBA /* SystemInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A00462793D92C009D0DBA /* SystemInformation.swift */; };
 		040A004E2793DD85009D0DBA /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A004D2793DD85009D0DBA /* STPrivilegedTask.m */; };
 		040A00512793DE11009D0DBA /* Process-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A00502793DE11009D0DBA /* Process-Extension.swift */; };
-		040C009B279B57D500BDD1F5 /* ExceptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040C009A279B57D500BDD1F5 /* ExceptionViewController.swift */; };
-		040C009E279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C009D279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m */; };
-		042A1F452793FB150000E0CB /* RecordingIndicatorInjection.h in Headers */ = {isa = PBXBuildFile; fileRef = 042A1F442793FB150000E0CB /* RecordingIndicatorInjection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		042A1F482793FB150000E0CB /* RecordingIndicatorInjection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */; };
-		042A1F492793FB150000E0CB /* RecordingIndicatorInjection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		042A1F502793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A1F4E2793FB1A0000E0CB /* NSObject+RecordingIndicatorInjection.m */; };
-		042A1F512793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.h in Headers */ = {isa = PBXBuildFile; fileRef = 042A1F4F2793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.h */; };
 		044BEB0D27963D6200402588 /* SupportPath.plist in Resources */ = {isa = PBXBuildFile; fileRef = 044BEB0B27963D6200402588 /* SupportPath.plist */; };
 		044BEB1027964C8200402588 /* SystemInformation-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB0F27964C8200402588 /* SystemInformation-Extension.swift */; };
 		044BEB1227964CE500402588 /* Bundle-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB1127964CE500402588 /* Bundle-Extension.swift */; };
 		044BEB14279653F600402588 /* PopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB13279653F600402588 /* PopButton.swift */; };
 		044BEB162796540A00402588 /* HoverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEB152796540A00402588 /* HoverButton.swift */; };
-		045769AE279BF59500916D4B /* CompatibilityRevision in Resources */ = {isa = PBXBuildFile; fileRef = 045769AD279BF59500916D4B /* CompatibilityRevision */; };
 		045769B0279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769AF279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift */; };
-		045769B2279BFE2E00916D4B /* AppException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769B1279BFE2E00916D4B /* AppException.swift */; };
-		045769B4279BFE5700916D4B /* AppExceptionTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769B3279BFE5700916D4B /* AppExceptionTableCellView.swift */; };
-		045769B6279BFE7600916D4B /* ExceptionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769B5279BFE7600916D4B /* ExceptionTableView.swift */; };
 		0477DE6D279C8D1700E732FA /* NSView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477DE6C279C8D1700E732FA /* NSView-Extension.swift */; };
 		04BDB1612793F3D300703576 /* String-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB1602793F3D300703576 /* String-Extension.swift */; };
 		04CF9C242793C159000F79AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF9C232793C159000F79AE /* AppDelegate.swift */; };
@@ -39,30 +28,6 @@
 		04CF9C282793C15A000F79AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04CF9C272793C15A000F79AE /* Assets.xcassets */; };
 		04CF9C2B2793C15A000F79AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CF9C292793C15A000F79AE /* Main.storyboard */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		042A1F462793FB150000E0CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 04CF9C182793C159000F79AE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 042A1F412793FB150000E0CB;
-			remoteInfo = RecordingIndicatorInjection;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		042A1F4A2793FB150000E0CB /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				042A1F492793FB150000E0CB /* RecordingIndicatorInjection.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		040A003C2793C659009D0DBA /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
@@ -75,25 +40,13 @@
 		040A004C2793DD85009D0DBA /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		040A004D2793DD85009D0DBA /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		040A00502793DE11009D0DBA /* Process-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Process-Extension.swift"; sourceTree = "<group>"; };
-		040C009A279B57D500BDD1F5 /* ExceptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewController.swift; sourceTree = "<group>"; };
-		040C009C279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSColor+RIUAlternatingColor.h"; sourceTree = "<group>"; };
-		040C009D279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSColor+RIUAlternatingColor.m"; sourceTree = "<group>"; };
-		042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RecordingIndicatorInjection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		042A1F442793FB150000E0CB /* RecordingIndicatorInjection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingIndicatorInjection.h; sourceTree = "<group>"; };
-		042A1F4E2793FB1A0000E0CB /* NSObject+RecordingIndicatorInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RecordingIndicatorInjection.m"; sourceTree = "<group>"; };
-		042A1F4F2793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RecordingIndicatorInjection.h"; sourceTree = "<group>"; };
 		044BEB0A27963D6200402588 /* SupportPathTemplate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SupportPathTemplate.xml; sourceTree = "<group>"; };
 		044BEB0B27963D6200402588 /* SupportPath.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SupportPath.plist; sourceTree = "<group>"; };
 		044BEB0F27964C8200402588 /* SystemInformation-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SystemInformation-Extension.swift"; sourceTree = "<group>"; };
 		044BEB1127964CE500402588 /* Bundle-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Extension.swift"; sourceTree = "<group>"; };
 		044BEB13279653F600402588 /* PopButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopButton.swift; sourceTree = "<group>"; };
 		044BEB152796540A00402588 /* HoverButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoverButton.swift; sourceTree = "<group>"; };
-		045769AD279BF59500916D4B /* CompatibilityRevision */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CompatibilityRevision; sourceTree = "<group>"; };
 		045769AF279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RangeReplaceableCollection-Extension.swift"; sourceTree = "<group>"; };
-		045769B1279BFE2E00916D4B /* AppException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppException.swift; sourceTree = "<group>"; };
-		045769B3279BFE5700916D4B /* AppExceptionTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExceptionTableCellView.swift; sourceTree = "<group>"; };
-		045769B5279BFE7600916D4B /* ExceptionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionTableView.swift; sourceTree = "<group>"; };
-		045769B7279BFFFE00916D4B /* AppKitRedeclaration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKitRedeclaration.h; sourceTree = "<group>"; };
 		0477DE6C279C8D1700E732FA /* NSView-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView-Extension.swift"; sourceTree = "<group>"; };
 		04BDB1602793F3D300703576 /* String-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Extension.swift"; sourceTree = "<group>"; };
 		04CF9C202793C159000F79AE /* Recording Indicator Utility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recording Indicator Utility.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,18 +58,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		042A1F3F2793FB150000E0CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		04CF9C1D2793C159000F79AE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				042A1F482793FB150000E0CB /* RecordingIndicatorInjection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,21 +86,9 @@
 			path = STPrivilegedTask;
 			sourceTree = "<group>";
 		};
-		042A1F432793FB150000E0CB /* RecordingIndicatorInjection */ = {
-			isa = PBXGroup;
-			children = (
-				045769B7279BFFFE00916D4B /* AppKitRedeclaration.h */,
-				042A1F442793FB150000E0CB /* RecordingIndicatorInjection.h */,
-				042A1F4F2793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.h */,
-				042A1F4E2793FB1A0000E0CB /* NSObject+RecordingIndicatorInjection.m */,
-			);
-			path = RecordingIndicatorInjection;
-			sourceTree = "<group>";
-		};
 		044BEB0927963D5600402588 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				045769AD279BF59500916D4B /* CompatibilityRevision */,
 				044BEB0A27963D6200402588 /* SupportPathTemplate.xml */,
 				044BEB0B27963D6200402588 /* SupportPath.plist */,
 			);
@@ -167,7 +100,6 @@
 			children = (
 				04CF9C252793C159000F79AE /* ViewController.swift */,
 				040A00402793CDC2009D0DBA /* SheetViewController.swift */,
-				040C009A279B57D500BDD1F5 /* ExceptionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -190,8 +122,6 @@
 				040A00502793DE11009D0DBA /* Process-Extension.swift */,
 				045769AF279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift */,
 				04BDB1602793F3D300703576 /* String-Extension.swift */,
-				040C009C279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.h */,
-				040C009D279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -200,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				04CF9C232793C159000F79AE /* AppDelegate.swift */,
-				045769B1279BFE2E00916D4B /* AppException.swift */,
 				040A00422793D3FC009D0DBA /* QRCodeGenerator.swift */,
 				040A00462793D92C009D0DBA /* SystemInformation.swift */,
 			);
@@ -210,8 +139,6 @@
 		04B0BD472794CEBE005867AF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				045769B3279BFE5700916D4B /* AppExceptionTableCellView.swift */,
-				045769B5279BFE7600916D4B /* ExceptionTableView.swift */,
 				040A003E2793CBF4009D0DBA /* GradientBox.swift */,
 				044BEB152796540A00402588 /* HoverButton.swift */,
 				044BEB13279653F600402588 /* PopButton.swift */,
@@ -223,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				04CF9C222793C159000F79AE /* RecordingIndicatorUtility */,
-				042A1F432793FB150000E0CB /* RecordingIndicatorInjection */,
 				04CF9C212793C159000F79AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -232,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				04CF9C202793C159000F79AE /* Recording Indicator Utility.app */,
-				042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,37 +181,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		042A1F3D2793FB150000E0CB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				042A1F452793FB150000E0CB /* RecordingIndicatorInjection.h in Headers */,
-				042A1F512793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		042A1F412793FB150000E0CB /* RecordingIndicatorInjection */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 042A1F4D2793FB150000E0CB /* Build configuration list for PBXNativeTarget "RecordingIndicatorInjection" */;
-			buildPhases = (
-				042A1F3D2793FB150000E0CB /* Headers */,
-				042A1F3E2793FB150000E0CB /* Sources */,
-				042A1F3F2793FB150000E0CB /* Frameworks */,
-				042A1F402793FB150000E0CB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RecordingIndicatorInjection;
-			productName = RecordingIndicatorInjection;
-			productReference = 042A1F422793FB150000E0CB /* RecordingIndicatorInjection.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		04CF9C1F2793C159000F79AE /* Recording Indicator Utility */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04CF9C2F2793C15A000F79AE /* Build configuration list for PBXNativeTarget "Recording Indicator Utility" */;
@@ -295,12 +190,10 @@
 				04CF9C1C2793C159000F79AE /* Sources */,
 				04CF9C1D2793C159000F79AE /* Frameworks */,
 				04CF9C1E2793C159000F79AE /* Resources */,
-				042A1F4A2793FB150000E0CB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				042A1F472793FB150000E0CB /* PBXTargetDependency */,
 			);
 			name = "Recording Indicator Utility";
 			productName = RecordingIndicatorUtility;
@@ -315,11 +208,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
-					042A1F412793FB150000E0CB = {
-						CreatedOnToolsVersion = 13.2.1;
-					};
 					04CF9C1F2793C159000F79AE = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -339,26 +229,17 @@
 			projectRoot = "";
 			targets = (
 				04CF9C1F2793C159000F79AE /* Recording Indicator Utility */,
-				042A1F412793FB150000E0CB /* RecordingIndicatorInjection */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		042A1F402793FB150000E0CB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		04CF9C1E2793C159000F79AE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				044BEB0D27963D6200402588 /* SupportPath.plist in Resources */,
 				04CF9C282793C15A000F79AE /* Assets.xcassets in Resources */,
-				045769AE279BF59500916D4B /* CompatibilityRevision in Resources */,
 				04CF9C2B2793C15A000F79AE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,31 +268,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		042A1F3E2793FB150000E0CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				042A1F502793FB1B0000E0CB /* NSObject+RecordingIndicatorInjection.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		04CF9C1C2793C159000F79AE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				04CF9C262793C159000F79AE /* ViewController.swift in Sources */,
-				045769B4279BFE5700916D4B /* AppExceptionTableCellView.swift in Sources */,
 				040A00512793DE11009D0DBA /* Process-Extension.swift in Sources */,
 				045769B0279BFDD700916D4B /* RangeReplaceableCollection-Extension.swift in Sources */,
 				04BDB1612793F3D300703576 /* String-Extension.swift in Sources */,
 				0477DE6D279C8D1700E732FA /* NSView-Extension.swift in Sources */,
 				044BEB162796540A00402588 /* HoverButton.swift in Sources */,
-				045769B6279BFE7600916D4B /* ExceptionTableView.swift in Sources */,
 				044BEB1227964CE500402588 /* Bundle-Extension.swift in Sources */,
 				040A00432793D3FC009D0DBA /* QRCodeGenerator.swift in Sources */,
-				040C009B279B57D500BDD1F5 /* ExceptionViewController.swift in Sources */,
 				044BEB14279653F600402588 /* PopButton.swift in Sources */,
-				040C009E279B5B7D00BDD1F5 /* NSColor+RIUAlternatingColor.m in Sources */,
 				040A00412793CDC2009D0DBA /* SheetViewController.swift in Sources */,
 				040A003D2793C659009D0DBA /* WindowController.swift in Sources */,
 				04CF9C242793C159000F79AE /* AppDelegate.swift in Sources */,
@@ -419,20 +288,11 @@
 				040A003F2793CBF4009D0DBA /* GradientBox.swift in Sources */,
 				044BEB1027964C8200402588 /* SystemInformation-Extension.swift in Sources */,
 				040A00452793D8AB009D0DBA /* MainWindow.swift in Sources */,
-				045769B2279BFE2E00916D4B /* AppException.swift in Sources */,
 				040A004E2793DD85009D0DBA /* STPrivilegedTask.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		042A1F472793FB150000E0CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 042A1F412793FB150000E0CB /* RecordingIndicatorInjection */;
-			targetProxy = 042A1F462793FB150000E0CB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		04CF9C292793C15A000F79AE /* Main.storyboard */ = {
@@ -446,74 +306,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		042A1F4B2793FB150000E0CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					x86_64,
-					arm64e,
-					arm64,
-				);
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorInjection;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		042A1F4C2793FB150000E0CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					x86_64,
-					arm64e,
-					arm64,
-				);
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorInjection;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		04CF9C2D2793C15A000F79AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -548,6 +340,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -609,6 +402,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -634,20 +428,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RecordingIndicatorUtility/RecordingIndicatorUtility.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 14;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Recording Indicator Utility";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For changes to the recording indicator to immediately take effect, click OK (recommended). \n\nOtherwise changes take effect when you pause an existing audio recording or start a new audio recording.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -662,20 +456,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RecordingIndicatorUtility/RecordingIndicatorUtility.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 14;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Recording Indicator Utility";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For changes to the recording indicator to immediately take effect, click OK (recommended). \n\nOtherwise changes take effect when you pause an existing audio recording or start a new audio recording.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mac.RecordingIndicatorUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -688,15 +482,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		042A1F4D2793FB150000E0CB /* Build configuration list for PBXNativeTarget "RecordingIndicatorInjection" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				042A1F4B2793FB150000E0CB /* Debug */,
-				042A1F4C2793FB150000E0CB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		04CF9C1B2793C159000F79AE /* Build configuration list for PBXProject "Recording Indicator Utility" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

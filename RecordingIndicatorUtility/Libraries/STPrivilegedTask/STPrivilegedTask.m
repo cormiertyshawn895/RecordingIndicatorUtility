@@ -28,6 +28,7 @@
 
 #import "STPrivilegedTask.h"
 
+#import <Carbon/Carbon.h>
 #import <Security/Authorization.h>
 #import <Security/AuthorizationTags.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
@@ -48,6 +49,42 @@ static AuthorizationRef staticCachedAuthorizationRef = NULL;
 static IOPMAssertionID staticAssertionID = 0;
 
 extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_import));
+
+// Sample code from https://developer.apple.com/library/archive/qa/qa1134/_index.html
+static OSStatus SendAppleEventToSystemProcess(AEEventID EventToSend);
+
+OSStatus SendAppleEventToSystemProcess(AEEventID EventToSend) {
+    AEAddressDesc targetDesc;
+    static const ProcessSerialNumber kPSNOfSystemProcess = { 0, kSystemProcess };
+    AppleEvent eventReply = {typeNull, NULL};
+    AppleEvent appleEventToSend = {typeNull, NULL};
+
+    OSStatus error = noErr;
+
+    error = AECreateDesc(typeProcessSerialNumber, &kPSNOfSystemProcess, sizeof(kPSNOfSystemProcess), &targetDesc);
+
+    if (error != noErr) {
+        return(error);
+    }
+
+    error = AECreateAppleEvent(kCoreEventClass, EventToSend, &targetDesc, kAutoGenerateReturnID, kAnyTransactionID, &appleEventToSend);
+
+    AEDisposeDesc(&targetDesc);
+    if (error != noErr) {
+        return(error);
+    }
+
+    error = AESend(&appleEventToSend, &eventReply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
+
+    AEDisposeDesc(&appleEventToSend);
+    if (error != noErr) {
+        return(error);
+    }
+
+    AEDisposeDesc(&eventReply);
+
+    return(error);
+}
 
 @implementation STPrivilegedTask
 {
@@ -90,6 +127,30 @@ extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_i
         NSLog(@"allowing sleep with assertion, %d, %d", success, success == kIOReturnSuccess);
         staticAssertionID = 0;
         return;
+    }
+}
+
++ (BOOL)restart {
+    OSStatus error = noErr;
+    error = SendAppleEventToSystemProcess(kAERestart);
+    if (error == noErr) {
+        printf("Computer is going to restart!\n");
+        return YES;
+    }
+    else {
+        printf("Computer wouldn't restart\n");
+        return NO;
+    }
+}
+
++ (void)setSystemStatusdLoaded:(BOOL)loaded {
+    NSDictionary *error = [NSDictionary new];
+    NSString *script =  [NSString stringWithFormat:@"do shell script \"/bin/launchctl %@ -w /System/Library/LaunchDaemons/com.apple.systemstatusd.plist\" with administrator privileges", loaded ? @"load" : @"unload"];
+    NSAppleScript *appleScript = [[NSAppleScript alloc] initWithSource:script];
+    if ([appleScript executeAndReturnError:&error]) {
+        NSLog(@"Success with error: %@", error);
+    } else {
+        NSLog(@"Failure with error: %@", error);
     }
 }
 

@@ -8,10 +8,7 @@ import Cocoa
 enum GuidanceType {
     case asLowering
     case asRaising
-    case asRaisingAlreadySealed
     case intelLowering
-    case intelRaising
-    case intelRaisingAlreadySealed
 }
 
 let instructionsURLPrefix = "https://cormiertyshawn895.github.io/instruction/?arch="
@@ -28,15 +25,9 @@ class SheetViewController: NSViewController {
         get {
             switch (self.guidanceType) {
             case .asLowering, .intelLowering:
-                return "To customize the recording indicator, you need to disable System Integrity Protection and allow non-sealed system snapshots."
+                return "To customize the recording indicator, you need to disable System Integrity Protection."
             case .asRaising:
-                return "The last sealed system volume snapshot has been successfully restored. You can now enable Full Security."
-            case .asRaisingAlreadySealed:
-                return "You can now start up in macOS Recovery, open Startup Security Utility, then raise the security policy to Full Security."
-            case .intelRaising:
-                return "The last sealed system volume snapshot has been successfully restored. You can now raise security settings."
-            case .intelRaisingAlreadySealed:
-                return "You can now start up in macOS Recovery, enable System Integrity Protection, and only allow sealed system snapshots."
+                return "You can start up in macOS Recovery and raise the security policy to Full Security."
             }
         }
     }
@@ -49,13 +40,11 @@ class SheetViewController: NSViewController {
         get {
             switch (self.guidanceType) {
             case .asLowering:
-                return "as-lowering"
-            case .asRaising, .asRaisingAlreadySealed:
-                return "as-raising"
+                return "riu-as-lowering"
             case .intelLowering:
-                return "intel-lowering"
-            case .intelRaising, .intelRaisingAlreadySealed:
-                return "intel-raising"
+                return "riu-intel-lowering"
+            case .asRaising:
+                return "sip-as-raising"
             }
         }
     }

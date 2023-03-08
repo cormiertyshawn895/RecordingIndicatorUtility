@@ -6,16 +6,8 @@
 import Foundation
 
 let tempDir = "/tmp"
-let injectionFolderPath = "/Users/Shared/.recordingIndicator"
-let injectionDylibName = "indicator_injection.dylib"
-let injectionWantsIndicatorFileName = "wants_indicator"
-let injectionOnlyWantsControlCenterIndicatorFileName = "wants_cc_only"
-let injectionExceptionsPlistName = "exceptions.plist"
-let candidateSourcesPlistName = "candidate_sources.plist"
-let compatibilityRevisionFileName = "CompatibilityRevision"
-
-let hasSeveralMacOSString = "several macOS installations"
-let pickAMacOSString = "Pick a macOS installation"
+let disabledTextOldOS = "\"com.apple.systemstatusd\" => true"
+let disabledText = "\"com.apple.systemstatusd\" => disabled"
 
 class SystemInformation {
     static let shared = SystemInformation()
@@ -23,12 +15,8 @@ class SystemInformation {
     private init() {
         let sipStatus = Process.runNonAdminTask(toolPath: "/usr/bin/csrutil", arguments: ["status"])
         isSIPEnabled = !sipStatus.lowercased().contains("disabled")
-        
-        let processInfo = ProcessInfo()
-        isLegacyOS = !processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 12, minorVersion: 2, patchVersion: 0))
-        
-        _oneTimeCheckAuthenticatedRoot()
-        
+        isSystemSealed = Process.runNonAdminTask(toolPath: "/usr/sbin/diskutil", arguments: ["apfs", "listSnapshots", "/"]).contains("1 found")
+
         let lastRebootAll = Process.runNonAdminTask(toolPath: "/usr/bin/last", arguments: ["reboot"])
         let lastRebootByLine = lastRebootAll.split(whereSeparator: \.isNewline)
         if let last = lastRebootByLine.first {
@@ -40,130 +28,36 @@ class SystemInformation {
             self.configurationDictionary = loaded
         }
         
+        if (isOutdatedModificationInstalled) {
+            _ = Process.runNonAdminTask(toolPath: "/bin/mkdir", arguments: ["-p", "/Users/Shared/.recordingIndicator"])
+            _ = Process.runNonAdminTask(toolPath: "/usr/bin/touch", arguments: ["/Users/Shared/.recordingIndicator/wants_indicator"])
+            _ = Process.runNonAdminTask(toolPath: "/bin/rm", arguments: ["/Users/Shared/.recordingIndicator/wants_cc_only"])
+            _ = Process.runNonAdminTask(toolPath: "/bin/rm", arguments: ["/Users/Shared/.recordingIndicator/exceptions.plist"])
+        }
+        
         self.checkForConfigurationUpdates()
-    }
-    
-    func _oneTimeCheckAuthenticatedRoot() {
-        guard let systemVolumeName = FileManager.default.componentsToDisplay(forPath: "/")?.first else {
-            return
-        }
-        self.updateAuthenticatedRootEnabledForVolume(volumeName: systemVolumeName)
-    }
-
-    // Workaround for detecting authenticated-root on Apple Silicon. Assumes volumes order is randomized per try.
-    // It's not possible to pipe through live input based on output because of stdout caching. See:
-    // https://iosdivin.blog/2020/12/24/the-adventures-with-nstask-co-part-3/
-    func updateAuthenticatedRootEnabledForVolume(volumeName: String, depth: Int = 0) {
-        let result = Process.runNonAdminTask(toolPath: "/usr/bin/csrutil", arguments: ["authenticated-root"], attemptInteractive: "1\n")
-        if result.contains(hasSeveralMacOSString) {
-            print("Multiple macOS installed, recursively finding the booted one")
-            let splits = result.components(separatedBy: .newlines)
-            let firstVolumeRow = splits.first { candidate in
-                return candidate.components(separatedBy: ": ").first?.trimmingCharacters(in: .whitespaces) == "1"
-            }
-            if let firstVolumeName = firstVolumeRow?.components(separatedBy: ": ").dropFirst().joined(separator: ": ") {
-                if (firstVolumeName == volumeName) {
-                    print("After \(depth + 1) tries, first installation in randomly ordered set match the booted installation \(firstVolumeName)")
-                    let statusRow = splits.first { candidate in
-                        candidate.contains("Authenticated Root status: ")
-                    }
-                    if let resultRow = statusRow {
-                        print("Result row is \(resultRow)")
-                        isAuthenticatedRootEnabled = !resultRow.contains("disabled")
-                        return
-                    }
-                }
-            }
-            if (depth > 50) {
-                AppDelegate.showOptionSheet(title: "Unable to determine if your Mac allows non-sealed system snapshots", text: "You have installed multiple copies of macOS, and Recording Indicator Utility is unable to locate the security status of the booted volume. If you have already allowed booting from non-sealed system snapshots, click Continue Anyways.", firstButtonText: "Continue Anyways", secondButtonText: "Cancel", thirdButtonText: "") { response in
-                    if (response == .alertFirstButtonReturn) {
-                        self.isAuthenticatedRootEnabled = false
-                    } else {
-                        self.isAuthenticatedRootEnabled = true
-                    }
-                }
-                return
-            }
-            updateAuthenticatedRootEnabledForVolume(volumeName: volumeName, depth: depth + 1)
-            return
-        }
-
-        isAuthenticatedRootEnabled = !result.contains("disabled")
     }
     
     var isAppleSilicon: Bool {
         return machineArchitectureName.contains("arm") || isTranslated
     }
     
-    var isFileVaultEnabled: Bool {
-        let status = Process.runNonAdminTask(toolPath: "/usr/bin/fdesetup", arguments: ["status"])
-        return !status.lowercased().contains("off")
-    }
-    
-    var fileVaultDecryptionProgress: String? {
-        let status = Process.runNonAdminTask(toolPath: "/usr/bin/fdesetup", arguments: ["status"])
-        let components = status.components(separatedBy: "completed = ")
-        if components.count < 2 {
-            return nil
-        }
-        return components.last
-    }
-    
-    private(set) public var isLegacyOS: Bool = false
     private(set) public var isSIPEnabled: Bool = true
-    private(set) public var isAuthenticatedRootEnabled: Bool = true
+    private(set) public var isSystemSealed: Bool = true
     private(set) public var lastSystemBootTime: String?
     
-    var isModificationInstalled: Bool {
-        let disableLibraryValidation = Process.runNonAdminTask(toolPath: "/usr/bin/defaults", arguments: ["read", "/Library/Preferences/com.apple.security.libraryvalidation", "DisableLibraryValidation"])
-        return FileManager.default.fileExists(atPath: "\(injectionFolderPath)/\(injectionDylibName)")
-        && disableLibraryValidation.contains("1") && !disableLibraryValidation.contains("does not exist")
-        && Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchDaemons/com.apple.WindowServer.plist"]).contains("indicator_injection.dylib")
-        && Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchAgents/com.apple.controlcenter.plist"]).contains("indicator_injection.dylib")
-        && (!isAppleSilicon || Process.runNonAdminTask(toolPath: "/usr/sbin/nvram", arguments: ["boot-args"]).contains("-arm64e_preview_abi"))
+    private var isOutdatedModificationInstalled: Bool {
+        Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchDaemons/com.apple.WindowServer.plist"]).contains("indicator_injection.dylib") || Process.runNonAdminTask(toolPath: "/bin/cat", arguments: ["/System/Library/LaunchAgents/com.apple.controlcenter.plist"]).contains("indicator_injection.dylib")
     }
     
-    var isWantsIndicatorFilePresent: Bool {
-        return FileManager.default.fileExists(atPath: "\(injectionFolderPath)/\(injectionWantsIndicatorFileName)")
+    var isSystemstatusdLoaded: Bool {
+        let result = Process.runNonAdminTask(toolPath: "/bin/launchctl", arguments: ["print-disabled", "system"])
+        let disabled = result.contains(disabledText) || result.contains(disabledTextOldOS)
+        return !disabled
     }
     
     var isTranslated: Bool {
         return processIsTranslated == EMULATED_EXECUTION
-    }
-    
-    var securityAllowsToggling: Bool {
-        return !isFileVaultEnabled && !isSIPEnabled && !isAuthenticatedRootEnabled
-    }
-    
-    var canRaiseSecurity: Bool {
-        return !isSIPEnabled || !isAuthenticatedRootEnabled
-    }
-    
-    var computedRecordingIndicatorOn: Bool {
-        return !securityAllowsToggling || !isModificationInstalled || isWantsIndicatorFilePresent
-    }
-    
-    // This variable does not check if injection is loaded through the LaunchAgents or LaunchDaemons plist.
-    // Only use this variable to determing lockout state before the user reboots.
-    var isInjectionUpToDate: Bool {
-        return installedCompatibilityVersion >= latestCompatibilityVersion
-    }
-    
-    var installedCompatibilityVersion: Int {
-        if let installedInjectionString = try? String(contentsOfFile: "\(injectionFolderPath)/\(compatibilityRevisionFileName)").trimmingCharacters(in: .whitespacesAndNewlines),
-           let installedVersion = Int(installedInjectionString) {
-            return installedVersion
-        }
-        return 0
-    }
-    
-    var latestCompatibilityVersion: Int {
-        if let resourcePath = Bundle.main.resourcePath,
-           let latestInjectionString = try? String(contentsOfFile: "\(resourcePath)/\(compatibilityRevisionFileName)").trimmingCharacters(in: .whitespacesAndNewlines),
-           let latestVersion = Int(latestInjectionString) {
-            return latestVersion
-        }
-        return 0
     }
     
     static func runUnameToPreAuthenticate() -> OSStatus {

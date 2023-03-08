@@ -29,47 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func startZeroSecondRecording() {
-        // Begin a 0 second long recording to force WindowServer and Control Center refresh their recording state.
-        // No audio is actually recorded or saved.
-        switch AVCaptureDevice.authorizationStatus(for: .audio) {
-        case .authorized:
-            performZeroSecondRecording()
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .audio) { granted in
-                if granted {
-                    self.performZeroSecondRecording()
-                } else {
-                    self.promptForLackOfAudioAuthorization()
-                }
-            }
-        case .denied, .restricted:
-            promptForLackOfAudioAuthorization()
-        @unknown default:
-            promptForLackOfAudioAuthorization()
-        }
-    }
-    
-    private func performZeroSecondRecording() {
-        let url = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("discarded"))
-        do {
-            let recorder = try AVAudioRecorder(url: url, settings: [:])
-            recorder.record(forDuration: 0)
-        } catch {
-            print("Unable to simulate a zero second recording to refresh microphone indicator, \(error)")
-        }
-    }
-    
-    private func promptForLackOfAudioAuthorization() {
-        DispatchQueue.main.async {
-            AppDelegate.showOptionSheet(title: "Changes to the recording indicator take effect when you pause an existing recording or start a new recording.", text: "For changes to take effect immediately in the future, allow Recording Indicator Utility to access your microphone.", firstButtonText: "Open Microphone Preferences", secondButtonText: "Not Now", thirdButtonText: "", prefersKeyWindow: true) { response in
-                if response == .alertFirstButtonReturn {
-                    AppDelegate.current.safelyOpenURL("x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")
-                }
-            }
-        }
-    }
-    
     @objc func promptForUpdateAvailable() {
         if (SystemInformation.shared.hasNewerVersion == true) {
             AppDelegate.showOptionSheet(title: SystemInformation.shared.newVersionVisibleTitle ?? "Update available.",

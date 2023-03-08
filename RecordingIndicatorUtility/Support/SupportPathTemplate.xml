@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NewVersionVisibleTitle</key>
-    <string>Recording Indicator Utility $(VERSION) improves support for macOS Ventura.</string>
+    <string>Recording Indicator Utility $(VERSION) contains compatibility improvements.</string>
 	<key>NewVersionChangelog</key>
-    <string>• Resolves a crash on macOS Ventura for Macs with Apple Silicon
+    <string>• Improves compatibility with macOS
 </string>
 	<key>LatestZIP</key>
 	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/$(MARKETING_VERSION)/RecordingIndicatorUtility.$(MARKETING_VERSION).zip</string>

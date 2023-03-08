@@ -50,7 +50,9 @@ extern const OSStatus errAuthorizationFnNoLongerExists;
 + (BOOL)flushBundleCache:(NSBundle *)bundle;
 
 + (BOOL)authorizationFunctionAvailable;
++ (BOOL)restart;
 + (OSStatus)preAuthenticate;
++ (void)setSystemStatusdLoaded:(BOOL)loaded;
     
 - (instancetype)initWithLaunchPath:(NSString *)path;
 - (instancetype)initWithLaunchPath:(NSString *)path arguments:(NSArray *)args;
