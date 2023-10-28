@@ -4,7 +4,7 @@
 <h2>Recording Indicator Utility</h2>
 <p>Recording Indicator Utility lets you turn off the <a href="https://twitter.com/applesupport/status/1454202118336811015">orange microphone recording indicator light</a>, making it ideal for professionals who <a href="https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/">run live events</a>, <a href="https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording">record screencasts</a>, or use a <a href="https://www.globaldelight.com/faq/boom3dmac">system-wide volume equalizer</a>.</p>
 
-<p>Recording Indicator Utility supports <a href="https://apps.apple.com/app/macos-ventura/id1638787999">macOS Ventura</a> and <a href="https://apps.apple.com/app/macos-monterey/id1576738294">macOS Monterey</a>.</p>
+<p>Recording Indicator Utility supports <a href="https://apps.apple.com/app/macos-sonoma/id6450717509">macOS Sonoma</a>, <a href="https://apps.apple.com/app/macos-ventura/id1638787999">macOS Ventura</a> and <a href="https://apps.apple.com/app/macos-monterey/id1576738294">macOS Monterey</a>.</p>
 
 </div>
 
@@ -68,7 +68,7 @@ Open Recording Indicator Utility, turn on the recording indicator, then click â€
 No. Your admin password is required before Recording Indicator Utility can make any changes. Recording Indicator Utility is designed to support professionals who [run live events](https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/), [record screencasts](https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording), or use a [system-wide volume equalizer](https://www.globaldelight.com/faq/boom3dmac).
 
 #### How does Recording Indicator Utility differ from undot and YellowDot?
-Recording Indicator Utility supports the latest version of [macOS Ventura](https://apps.apple.com/app/macos-ventura/id1638787999) and [macOS Monterey](https://apps.apple.com/app/macos-monterey/id1576738294). It requires adjusting security settings.
+Recording Indicator Utility supports the latest version of [macOS Sonoma](https://apps.apple.com/app/macos-sonoma/id6450717509), [macOS Ventura](https://apps.apple.com/app/macos-ventura/id1638787999) and [macOS Monterey](https://apps.apple.com/app/macos-monterey/id1576738294). It requires adjusting security settings.
 
 [undot](https://github.com/s4y/undot) and [YellowDot](https://lowtechguys.com/yellowdot/) only support macOS 12.1 and earlier, allow you to turn off the recording indicator in full-screen apps, and do not require adjusting security settings. 
 
