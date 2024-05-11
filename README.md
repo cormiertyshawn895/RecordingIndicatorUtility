@@ -2,9 +2,8 @@
 
 <div>
 <h2>Recording Indicator Utility</h2>
-<p>Recording Indicator Utility lets you turn off the <a href="https://twitter.com/applesupport/status/1454202118336811015">orange microphone recording indicator light</a>, making it ideal for professionals who <a href="https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/">run live events</a>, <a href="https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording">record screencasts</a>, or use a <a href="https://www.globaldelight.com/faq/boom3dmac">system-wide volume equalizer</a>.</p>
-
-<p>Recording Indicator Utility supports <a href="https://apps.apple.com/app/macos-sonoma/id6450717509">macOS Sonoma</a>, <a href="https://apps.apple.com/app/macos-ventura/id1638787999">macOS Ventura</a> and <a href="https://apps.apple.com/app/macos-monterey/id1576738294">macOS Monterey</a>.</p>
+<p>In macOS Sonoma 14.4 or later, you can hide the recording indicator on external displays without using Recording Indicator Utility. <a href="https://support.apple.com/118449">Learn more ↗</a></p>
+<p>Recording Indicator Utility lets you turn off the <a href="https://twitter.com/applesupport/status/1454202118336811015">orange microphone recording indicator light</a>, making it ideal for professionals who <a href="https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/">run live events</a>, <a href="https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording">record screencasts</a>, or use a <a href="https://www.globaldelight.com/faq/boom3dmac">system-wide volume equalizer</a>. Recording Indicator Utility supports <a href="https://apps.apple.com/app/macos-sonoma/id6450717509">macOS Sonoma</a>, <a href="https://apps.apple.com/app/macos-ventura/id1638787999">macOS Ventura</a> and <a href="https://apps.apple.com/app/macos-monterey/id1576738294">macOS Monterey</a>.</p>
 
 </div>
 
@@ -35,6 +34,10 @@ Recording Indicator Utility will not harm your Mac. This alert shows up because 
 
 ### Using Recording Indicator Utility
 
+To use Recording Indicator Utility, you need to turn off System Integrity Protection. In macOS Sonoma 14.4 or later, you can hide the recording indicator on external displays without using Recording Indicator Utility. [Learn more ↗](https://support.apple.com/118449)
+
+![](RecordingIndicatorUtility/Screenshots/screenshot-prerequisite.jpg)
+
 By default, the recording indicator light shows you when an app has access to your microphone. Click the blue toggle to turn off the recording indicator light across all apps.
 
 ![](RecordingIndicatorUtility/Screenshots/screenshot-enabled.jpg)
@@ -47,10 +50,8 @@ When the “Recording Indicator” toggle is off, the recording indicator light 
 
 ### Frequently Asked Questions
 
-![](RecordingIndicatorUtility/Screenshots/screenshot-prerequisite.jpg)
-
-#### Why is Recording Indicator Utility guiding me to disable System Integrity Protection?
-To turn off the recording indicator, Recording Indicator Utility needs to reconfigure system components protected by [System Integrity Protection](https://support.apple.com/en-us/HT204899).
+#### Can I turn off the recording indicator without downloading Recording Indicator Utility?
+In macOS Sonoma 14.4 or later, you can hide the recording indicator on external displays without using Recording Indicator Utility. [Learn more ↗](https://support.apple.com/118449)
 
 #### Why is Recording Indicator Utility asking me to scan a QR code to view instructions?
 To disable System Integrity Protection, you need to start up in macOS Recovery. Because Recording Indicator Utility can’t show instructions in macOS Recovery, it is easier to follow along on another device by scanning a QR code. You can also preview the instructions on your Mac.
