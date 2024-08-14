@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>NewVersionVisibleTitle</key>
-    <string>Recording Indicator Utility 2.0 (Build 14) contains compatibility improvements.</string>
+    <string>Recording Indicator Utility 2.0 (Build 16) contains compatibility improvements.</string>
 	<key>NewVersionChangelog</key>
     <string>• Improves compatibility with macOS
 </string>
 	<key>LatestZIP</key>
 	<string>https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/2.0/RecordingIndicatorUtility.2.0.zip</string>
 	<key>LatestBuildNumber</key>
-	<integer>14</integer>
+	<integer>16</integer>
 	<key>SupportPathURL</key>
 	<string>https://raw.githubusercontent.com/cormiertyshawn895/RecordingIndicatorUtility/master/RecordingIndicatorUtility/Support/SupportPath.plist</string>
 	<key>ReleasePage</key>

@@ -113,7 +113,7 @@ class ViewController: NSViewController {
                                     text: "This version of Recording Indicator Utility is only designed and tested for macOS Ventura and macOS Monterey, and does not support macOS \(osFullVersion.majorVersion).",
                                     firstButtonText: "Check for Updates",
                                     secondButtonText: "Continue Anyway",
-                                    thirdButtonText: "Quit") { (response) in
+                                    thirdButtonText: "Quit") { (response, isChecked) in
             if (response == .alertFirstButtonReturn) {
                 AppDelegate.current.checkForUpdates()
             } else if (response == .alertSecondButtonReturn) {
@@ -152,7 +152,7 @@ class ViewController: NSViewController {
                 self.waitingForRestart = SystemInformation.shared.lastSystemBootTime
                 self.updateUI()
                 let title = loaded ? "Turning on the recording indicator light requires a restart to take effect." : "Turning off the recording indicator light requires a restart to take effect."
-                AppDelegate.showOptionSheet(title: title, text: "Do you want to restart now?", firstButtonText: "Restart Now", secondButtonText: "Not Now", thirdButtonText: "") { response in
+                AppDelegate.showOptionSheet(title: title, text: "Do you want to restart now?", firstButtonText: "Restart Now", secondButtonText: "Not Now", thirdButtonText: "") { response, isChecked in
                     if (response == .alertFirstButtonReturn) {
                         self.performReboot()
                     }
@@ -231,7 +231,7 @@ class ViewController: NSViewController {
             return
         }
         
-        AppDelegate.showOptionSheet(title: "Would you like to raise security settings?", text: "This will re-enable System Integrity Protection. Your Mac will automatically restart afterwards.", firstButtonText: "Continue and Restart", secondButtonText: "Cancel", thirdButtonText: "") { response in
+        AppDelegate.showOptionSheet(title: "Would you like to raise security settings?", text: "This will re-enable System Integrity Protection. Your Mac will automatically restart afterwards.", firstButtonText: "Continue and Restart", secondButtonText: "Cancel", thirdButtonText: "") { response, isChecked in
             if (response == .alertFirstButtonReturn) {
                 self.applyRaisedSecuritySettings()
             }

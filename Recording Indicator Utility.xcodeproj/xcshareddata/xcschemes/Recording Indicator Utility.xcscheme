@@ -79,7 +79,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "cp -R &quot;$SRCROOT/RecordingIndicatorUtility/Supplemental/What to do if Recording Indicator Utility can&#x2019;t be opened.pdf&quot; &quot;$ARCHIVE_PATH/Products/Applications&quot;&#10;mv &quot;$ARCHIVE_PATH/Products/Applications/$PRODUCT_NAME.app&quot; &quot;$ARCHIVE_PATH/Products/Applications/Recording Indicator Utility (right click to open).app&quot;&#10;MARKETING_FOLDER=&quot;$PRODUCT_NAME $MARKETING_VERSION&quot;&#10;MARKETING_PATH=&quot;$ARCHIVE_PATH/Products/$MARKETING_FOLDER&quot;&#10;mv &quot;$ARCHIVE_PATH/Products/Applications&quot; &quot;$MARKETING_PATH&quot;&#10;&#10;">
+               scriptText = "cp -R &quot;$SRCROOT/RecordingIndicatorUtility/Supplemental/Help.webloc&quot; &quot;$ARCHIVE_PATH/Products/Applications&quot;&#10;MARKETING_FOLDER=&quot;$PRODUCT_NAME $MARKETING_VERSION&quot;&#10;MARKETING_PATH=&quot;$ARCHIVE_PATH/Products/$MARKETING_FOLDER&quot;&#10;mv &quot;$ARCHIVE_PATH/Products/Applications&quot; &quot;$MARKETING_PATH&quot;&#10;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

@@ -1,11 +1,24 @@
-<a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/2.0/RecordingIndicatorUtility.2.0.zip" alt="Download Recording Indicator Utility"><img src="RecordingIndicatorUtility/Screenshots/icon.png" width="150" alt="Recording Indicator Utility App icon" align="left"/></a>
+### You may not need Recording Indicator Utility
 
-<div>
-<h2>Recording Indicator Utility</h2>
-<p>In macOS Sonoma 14.4 or later, you can hide the recording indicator on external displays without using Recording Indicator Utility. <a href="https://support.apple.com/118449">Learn more ↗</a></p>
-<p>Recording Indicator Utility lets you turn off the <a href="https://twitter.com/applesupport/status/1454202118336811015">orange microphone recording indicator light</a>, making it ideal for professionals who <a href="https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/">run live events</a>, <a href="https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording">record screencasts</a>, or use a <a href="https://www.globaldelight.com/faq/boom3dmac">system-wide volume equalizer</a>. Recording Indicator Utility supports <a href="https://apps.apple.com/app/macos-sonoma/id6450717509">macOS Sonoma</a>, <a href="https://apps.apple.com/app/macos-ventura/id1638787999">macOS Ventura</a> and <a href="https://apps.apple.com/app/macos-monterey/id1576738294">macOS Monterey</a>.</p>
+You can follow these steps to [hide the recording indicator on external displays](https://support.apple.com/118449) without using Recording Indicator Utility.
 
-</div>
+1. [Update to the latest version of macOS](https://support.apple.com/en-us/108382).
+1. Start up from macOS Recovery. [Instructions for Mac with Apple silicon](https://support.apple.com/guide/mac-help/mchl82829c17/mac#mchl5abfbb29). [Instructions for Intel-based Mac](https://support.apple.com/guide/mac-help/mchl338cf9a8#mchl69906860).
+1. From the Utilities menu in the menu bar, choose Terminal.
+1. Enter this command: `system-override suppress-sw-camera-indication-on-external-displays=on`
+1. Quit Terminal.
+1. From the Apple menu, choose Restart.
+1. After your Mac restarts, choose Apple menu  > System Settings, then click Privacy & Security in the sidebar.
+1. Click Microphone (or Camera).
+1. Turn off Privacy Indicators for Microphone (or Camera) Access.
+
+
+---
+
+### Downloading Recording Indicator Utility
+
+<p>You can use Recording Indicator Utility to turn off the recording indicator on the primary display and external displays not in full screen. This is ideal for professionals who <a href="https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/">run live events</a>, <a href="https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording">record screencasts</a>, or use a <a href="https://www.globaldelight.com/faq/boom3dmac">system-wide volume equalizer</a>.</p>
+
 
 <p align="center">
   <a href="https://github.com/cormiertyshawn895/RecordingIndicatorUtility/releases/download/2.0/RecordingIndicatorUtility.2.0.zip" alt="Download Recording Indicator Utility"><img width="362" src="RecordingIndicatorUtility/Screenshots/resources/download-button.png" alt="Download Recording Indicator Utility"></a>
@@ -22,11 +35,9 @@
 
 After downloading Recording Indicator Utility, double click to open it. macOS may prompt you “Recording Indicator Utility cannot be opened because it is from an unidentified developer.” This is expected. 
 
-To open Recording Indicator Utility, [right-click](https://support.apple.com/HT207700) on Recording Indicator Utility in Finder, and click “Open” as shown below.
+To open Recording Indicator Utility, navigate to System Settings > Privacy & Security, then scroll down and click [“Open Anyway”](https://support.apple.com/102445#openanyway).
 
 ![](RecordingIndicatorUtility/Screenshots/screenshot-gatekeeper.jpg)
-
-If you right-clicked when opening Recording Indicator Utility for the first time, you may need to [right-click](https://support.apple.com/HT207700) for a second time. If Recording Indicator Utility still can’t be opened, [check your GateKeeper settings](https://support.apple.com/en-us/HT202491) under the General tab in System Preferences > Security & Privacy. Click “Open Anyway” to open Recording Indicator Utility.
 
 Recording Indicator Utility will not harm your Mac. This alert shows up because Recording Indicator Utility modifies macOS and cannot be notarized. Recording Indicator Utility is [open source](https://github.com/cormiertyshawn895/RecordingIndicatorUtility), so you can always [examine its source code](https://github.com/cormiertyshawn895/RecordingIndicatorUtility/tree/master/RecordingIndicatorUtility) to verify its inner working.
 
@@ -69,7 +80,7 @@ Open Recording Indicator Utility, turn on the recording indicator, then click �
 No. Your admin password is required before Recording Indicator Utility can make any changes. Recording Indicator Utility is designed to support professionals who [run live events](https://cdm.link/2021/12/apple-added-an-orange-dot-thats-a-showstopper-for-live-visuals-and-it-needs-a-fix/), [record screencasts](https://telestreamforum.forumbee.com/t/x2hgw5f/orange-dot-on-imac-screen-when-screenflow-is-recording), or use a [system-wide volume equalizer](https://www.globaldelight.com/faq/boom3dmac).
 
 #### How does Recording Indicator Utility differ from undot and YellowDot?
-Recording Indicator Utility supports the latest version of [macOS Sonoma](https://apps.apple.com/app/macos-sonoma/id6450717509), [macOS Ventura](https://apps.apple.com/app/macos-ventura/id1638787999) and [macOS Monterey](https://apps.apple.com/app/macos-monterey/id1576738294). It requires adjusting security settings.
+Recording Indicator Utility supports the latest version of macOS, but requires adjusting security settings.
 
 [undot](https://github.com/s4y/undot) and [YellowDot](https://lowtechguys.com/yellowdot/) only support macOS 12.1 and earlier, allow you to turn off the recording indicator in full-screen apps, and do not require adjusting security settings. 
 

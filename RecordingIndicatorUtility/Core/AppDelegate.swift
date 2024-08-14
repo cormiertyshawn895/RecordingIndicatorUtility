@@ -10,9 +10,16 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var shouldPreventClosing = false
+    @IBOutlet weak var showSystemOverrideMenuItem: NSMenuItem!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSApp.activate(ignoringOtherApps: true)
+        if (!osAtLeastSonomaE) {
+            showSystemOverrideMenuItem.isHidden = true
+        }
+        if (osAtLeastSonomaE && !UserDefaults.standard.bool(forKey: "AcknowledgedSystemOverrideAlert") && SystemInformation.shared.isSystemstatusdLoaded) {
+            self.showSystemOverrideInstructions(self)
+        }
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -35,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                         text: SystemInformation.shared.newVersionChangelog ?? "A newer version of Recording Indicator Utility is available.",
                                         firstButtonText: "Download",
                                         secondButtonText: "Learn More...",
-                                        thirdButtonText: "Cancel") { (response) in
+                                        thirdButtonText: "Cancel") { (response, isChecked) in
                 if (response == .alertFirstButtonReturn) {
                     AppDelegate.current.safelyOpenURL(SystemInformation.shared.latestZIP)
                 } else if (response == .alertSecondButtonReturn) {
@@ -47,10 +54,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                         text:"",
                                         firstButtonText: "OK",
                                         secondButtonText: "View Release Page...",
-                                        thirdButtonText: "") { (response) in
+                                        thirdButtonText: "") { (response, isChecked) in
                 if (response == .alertSecondButtonReturn) {
                     AppDelegate.current.safelyOpenURL(SystemInformation.shared.releasePage)
                 }
+            }
+        }
+    }
+    
+    @IBAction func showSystemOverrideInstructions(_ sender: Any) {
+        UserDefaults.standard.setValue(nil, forKey: "AcknowledgedSystemOverrideAlert")
+        AppDelegate.showOptionSheet(title: "You can hide the recording indicator on external displays without using Recording Indicator Utility.",
+                                    text: "Start up from macOS Recovery, and enter this command in Terminal:\n\nsystem-override suppress-sw-camera-indication-on-external-displays=on\n\nRestart, then open System Settings > Privacy & Security > Microphone, and turn off Privacy Indicators.",
+                                    firstButtonText: "Learn More…",
+                                    secondButtonText: "     Continue     ",
+                                    thirdButtonText: "",
+                                    checkboxText: "Don’t show this message again") { (response, isChecked) in
+            if (response == .alertFirstButtonReturn) {
+                AppDelegate.current.safelyOpenURL("https://support.apple.com/118449")
+            }
+            if (isChecked == true) {
+                UserDefaults.standard.setValue(true, forKey: "AcknowledgedSystemOverrideAlert")
             }
         }
     }
@@ -81,7 +105,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func issueTracker(_ sender: Any) {
-        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility/issues")
+        self.safelyOpenURL("https://github.com/cormiertyshawn895/RecordingIndicatorUtility/issues?q=")
     }
     
     static var current: AppDelegate {
@@ -94,12 +118,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    static func showOptionSheet(title: String, text: String, firstButtonText: String, secondButtonText: String, thirdButtonText: String, prefersKeyWindow: Bool = false, callback: @escaping ((_ response: NSApplication.ModalResponse)-> ())) {
+    static func showOptionSheet(title: String, text: String, firstButtonText: String, secondButtonText: String, thirdButtonText: String, checkboxText: String? = nil, prefersKeyWindow: Bool = false, callback: @escaping ((_ response: NSApplication.ModalResponse, _ isChecked: Bool?)-> ())) {
         let alert = NSAlert()
         alert.messageText = title
         alert.informativeText = text
         alert.alertStyle = NSAlert.Style.informational
         alert.addButton(withTitle: firstButtonText)
+        var checkbox: NSButton?
+        if let checkboxText = checkboxText {
+            checkbox = NSButton(checkboxWithTitle: checkboxText, target: nil, action: nil)
+            alert.accessoryView = checkbox
+        }
         if secondButtonText.count > 0 {
             alert.addButton(withTitle: secondButtonText)
         }
@@ -108,11 +137,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         if let window = prefersKeyWindow ? NSApp.keyWindow : self.appWindow {
             alert.beginSheetModal(for: window) { (response) in
-                callback(response)
+                callback(response, checkbox?.state == .on)
             }
         } else {
             let response = alert.runModal()
-            callback(response)
+            callback(response, checkbox?.state == .on)
         }
     }
     

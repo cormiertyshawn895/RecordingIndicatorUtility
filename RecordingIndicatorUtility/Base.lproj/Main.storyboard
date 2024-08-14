@@ -376,6 +376,13 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
+                                        <menuItem title="Show system-override Instructions" id="PE7-gb-7lT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showSystemOverrideInstructions:" target="Voe-Tx-rLC" id="bSq-6Y-n94"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="fcF-X2-Thh"/>
                                         <menuItem title="Check for Updates..." id="914-zk-pyf">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -430,7 +437,11 @@ CA
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Recording_Indicator_Utility" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Recording_Indicator_Utility" customModuleProvider="target">
+                    <connections>
+                        <outlet property="showSystemOverrideMenuItem" destination="PE7-gb-7lT" id="Tbe-F3-lrt"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
