@@ -138,6 +138,7 @@ class ViewController: NSViewController {
     }
     
     func setSystemstatusdLoaded(_ loaded: Bool = true) {
+        let needsRepair = SystemInformation.shared.needsRepair
         setActionButtonAvailability(available: false)
         DispatchQueue.global(qos: .userInteractive).async {
             STPrivilegedTask.setSystemStatusdLoaded(loaded)
@@ -147,14 +148,22 @@ class ViewController: NSViewController {
                 let success = SystemInformation.shared.isSystemstatusdLoaded == loaded
                 print("\(loaded ? "Load" : "Unload") result is \(success)")
                 if (!success) {
+                    if (needsRepair) {
+                        NSApplication.shared.terminate(self)
+                    }
                     return
                 }
                 self.waitingForRestart = SystemInformation.shared.lastSystemBootTime
                 self.updateUI()
-                let title = loaded ? "Turning on the recording indicator light requires a restart to take effect." : "Turning off the recording indicator light requires a restart to take effect."
-                AppDelegate.showOptionSheet(title: title, text: "Do you want to restart now?", firstButtonText: "Restart Now", secondButtonText: "Not Now", thirdButtonText: "") { response, isChecked in
+                var title = loaded ? "Turning on the recording indicator light requires a restart to take effect." : "Turning off the recording indicator light requires a restart to take effect."
+                if (needsRepair) {
+                    title = "Repair requires a restart to take effect."
+                }
+                AppDelegate.showOptionSheet(title: title, text: "Do you want to restart now?", firstButtonText: "Restart Now", secondButtonText: needsRepair ? "Quit": "Not Now", thirdButtonText: "") { response, isChecked in
                     if (response == .alertFirstButtonReturn) {
                         self.performReboot()
+                    } else if (needsRepair) {
+                        NSApplication.shared.terminate(self)
                     }
                 }
             }

@@ -17,6 +17,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if (!osAtLeastSonomaE) {
             showSystemOverrideMenuItem.isHidden = true
         }
+        if (osAtLeastSequoiaE) {
+            self.showSystemOverrideInstructions(self)
+            return
+        }
         if (osAtLeastSonomaE && !UserDefaults.standard.bool(forKey: "AcknowledgedSystemOverrideAlert") && SystemInformation.shared.isSystemstatusdLoaded) {
             self.showSystemOverrideInstructions(self)
         }
@@ -64,14 +68,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showSystemOverrideInstructions(_ sender: Any) {
         UserDefaults.standard.setValue(nil, forKey: "AcknowledgedSystemOverrideAlert")
-        AppDelegate.showOptionSheet(title: "You can hide the recording indicator on external displays without using Recording Indicator Utility.",
-                                    text: "Start up from macOS Recovery, and enter this command in Terminal:\n\nsystem-override suppress-sw-camera-indication-on-external-displays=on\n\nRestart, then open System Settings > Privacy & Security > Microphone, and turn off Privacy Indicators.",
-                                    firstButtonText: "Learn More…",
-                                    secondButtonText: "     Continue     ",
+        let needsRepair = SystemInformation.shared.needsRepair
+        AppDelegate.showOptionSheet(title: osAtLeastSequoiaE ? "Recording Indicator Utility has been discontinued." : "You can hide the recording indicator on external displays without using Recording Indicator Utility.",
+                                    text: osAtLeastSequoiaE ? "Recording Indicator Utility is not compatible with macOS Sequoia 15.4 and later.\n\n\(needsRepair ? " Previous changes made by Recording Indicator Utility can lead to high CPU usage on your Mac. Click “Repair…” to continue." : " You can hide the recording indicator on external displays without using Recording Indicator Utility.")" : "Start up from macOS Recovery, and enter this command in Terminal:\n\nsystem-override suppress-sw-camera-indication-on-external-displays=on\n\nRestart, then open System Settings > Privacy & Security > Microphone, and turn off Privacy Indicators.",
+                                    firstButtonText: needsRepair ? "Repair…" :"Learn More…",
+                                    secondButtonText: osAtLeastSequoiaE ? "" : "     Continue     ",
                                     thirdButtonText: "",
-                                    checkboxText: "Don’t show this message again") { (response, isChecked) in
+                                    checkboxText: osAtLeastSequoiaE ? nil : "Don’t show this message again") { (response, isChecked) in
             if (response == .alertFirstButtonReturn) {
+                if (needsRepair) {
+                    AppDelegate.rootVC?.setSystemstatusdLoaded(true)
+                    return
+                }
                 AppDelegate.current.safelyOpenURL("https://support.apple.com/118449")
+                if (osAtLeastSequoiaE) {
+                    NSApplication.shared.terminate(self)
+                }
             }
             if (isChecked == true) {
                 UserDefaults.standard.setValue(true, forKey: "AcknowledgedSystemOverrideAlert")

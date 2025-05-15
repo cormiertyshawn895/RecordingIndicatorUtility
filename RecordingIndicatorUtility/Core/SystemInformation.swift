@@ -56,6 +56,10 @@ class SystemInformation {
         return !disabled
     }
     
+    var needsRepair: Bool {
+        return osAtLeastSequoiaE && !SystemInformation.shared.isSystemstatusdLoaded
+    }
+    
     var isTranslated: Bool {
         return processIsTranslated == EMULATED_EXECUTION
     }

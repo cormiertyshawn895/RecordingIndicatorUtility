@@ -1,4 +1,8 @@
-### You may not need Recording Indicator Utility
+### Recording Indicator Utility has been discontinued, and is not compatible with macOS Sequoia 15.4 or later.
+
+Previous changes made by Recording Indicator Utility can lead to high CPU usage on macOS Sequoia 15.4 and later. To resolve this, open Terminal and run the following command. Your password is not shown as you type.
+
+`sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.systemstatusd.plist`
 
 You can follow these steps to [hide the recording indicator on external displays](https://support.apple.com/118449) without using Recording Indicator Utility.
 

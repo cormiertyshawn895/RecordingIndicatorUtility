@@ -7,6 +7,7 @@ import Foundation
 
 private let processInfo = ProcessInfo()
 let osAtLeastSonomaE = processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 14, minorVersion: 4, patchVersion: 0))
+let osAtLeastSequoiaE = processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 15, minorVersion: 4, patchVersion: 0))
 
 extension Process {
     static func runNonAdminTask(toolPath: String, arguments: [String], attemptInteractive: String? = nil) -> String {
